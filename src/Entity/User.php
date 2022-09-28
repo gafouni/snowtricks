@@ -39,10 +39,10 @@ class User
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $role;
+    // /**
+    //  * @ORM\Column(type="string", length=255, nullable=true)
+    //  */
+    // private $role;
 
     /**
      * @ORM\Column(type="boolean")
@@ -63,6 +63,11 @@ class User
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user", orphanRemoval=true)
      */
     private $message;
+
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
 
     public function __construct()
     {
@@ -124,17 +129,17 @@ class User
         return $this;
     }
 
-    public function getRole(): ?string
-    {
-        return $this->role;
-    }
+    // public function getRole(): ?array
+    // {
+    //     return $this->role;
+    // }
 
-    public function setRole(?string $role): self
-    {
-        $this->role = $role;
+    // public function setRole(?array $role): self
+    // {
+    //     $this->role = $role;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getIsVerified(): ?bool
     {
@@ -216,6 +221,18 @@ class User
                 $message->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
