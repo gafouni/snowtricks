@@ -38,10 +38,22 @@ class TrickRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+     /**
+     * @return Trick[] Returns an array of Trick objects
+     */
+    public function DisplayLastTricks(){
 
-//    /**
-//     * @return Trick[] Returns an array of Trick objects
-//     */
+        return $this->createQueryBuilder('t')
+                    ->orderBy('t.id', 'DESC')
+                    ->setMaxResults(12)
+                    ->getQuery()
+                    ->getResult();
+    }
+
+//  /**
+//   * @return Trick[] Returns an array of Trick objects
+//  */
 //    public function findByExampleField($value): array
 //    {
 //        return $this->createQueryBuilder('t')
