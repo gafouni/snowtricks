@@ -26,7 +26,7 @@
                         {# Card #}
                         <div class="team-member">
                             <img class="mx-auto" src="{{ trick.imgFile }}" alt="figure de snowboard" />                           
-                            <h4>{{ trick.trickName }}</h4>
+                            <a href="{{ path('trick', {id:trick.id})}}">{{ trick.trickName }}</a>
                             <p class="text-muted">{{  trick.description }}</p>
                             <h6>Ajoute le{{ trick.createdAt|date('d/m/y') }}</h6>
                         </div>

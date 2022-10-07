@@ -7,9 +7,9 @@
     <!-- Contact-->
     <section class="page-section" id="contact">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">Contact Us</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <div class="text-center" style="margin:3rem;">
+                <h3 class="section-heading text-uppercase">{{ trick.trickName }}</h3>
+                {# <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3> #}
             </div>
             <!-- * * * * * * * * * * * * * * *-->
             <!-- * * SB Forms Contact Form * *-->
@@ -20,41 +20,44 @@
             <!-- to get an API token!-->
 
             {# Image principale #}
-            <div class="card mb-3">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="row">
+                <div class="col-md-2">
                 </div>
-            </div>
+                <div class="col-md-8">
+                    <div class="card mb-3" style=" height:400px;">
+                        <img class="card-img-top" style="height:100%;" src="{{ trick.imgFile }}" alt="Card image cap">                       
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
+
 
             {# Petites images et video #}
             <div class="card-deck">
                 <div class="card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
+                    <img class="card-img-top" src="{{ trick.imgFile }}" alt="Card image cap">
+                    {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>
-                    </div>
+                    </div> #}
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
+                    <img class="card-img-top" src="../assets/img/ImagesBD/pexels-flo-maderebner-851095.jpg" alt="Card image cap">
+                    {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>                        
-                    </div>
+                    </div> #}
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
+                    <img class="card-img-top" src="{{ trick.videoFile }}" alt="Card image cap">
+                    {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>
-                    </div>
+                    </div> #}
                 </div>
             </div>
             <br>
             <br>
 
             {# Texte descriptif de la figure #}
-            <div>
+            <div style="padding:3rem;">
                 <p>
                     Paragraph of text beneath the heading to explain the heading. We'll add onto it with another 
                     sentence and probably just keep going until we run out of words.
@@ -71,19 +74,20 @@
             <div class="card-deck">
                 <div class="card">                   
                     <div class="card-body">
-                        <p class="card-text"><small>Groupe:</small></p>
-                    </div>
-                </div>
-                <div class="card">                   
-                    <div class="card-body">                    
-                        <p class="card-text"><small>Cree le:</small></p>
+                        <p class="card-text"><small>Auteur:  {{ trick.user.firstName }} {{ trick.user.lastName }}</small></p>
                     </div>
                 </div>
                 <div class="card">                   
                     <div class="card-body">
-                        <p class="card-text"><small>Modifier le:</small></p>
+                        <p class="card-text"><small>Categorie:  {{ trick.trickgroup.name }}</small></p>
                     </div>
                 </div>
+                <div class="card">                   
+                    <div class="card-body">                    
+                        <p class="card-text"><small>Cree le:  {{ trick.createdAt|date('d/m/y') }}</small></p>
+                    </div>
+                </div>
+                
             </div>
             <br>
             <br>
@@ -98,11 +102,12 @@
         <div class="container px-5 my-5 px-5">
             <div class="text-center mb-5">
                 {# <h2 class="fw-bolder" style="color:white">Customer testimonials</h2> #}
-                <p class="lead mb-0">Liste des commentaires</p>
+                <p class="lead mb-0 ">Liste des commentaires</p>
             </div>
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-6">
                     <!-- Testimonial 1-->
+                    <!--Mettre ici la boucle For pour les messages-->
                     <div class="card mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex">
