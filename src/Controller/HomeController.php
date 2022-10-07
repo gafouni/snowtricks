@@ -10,12 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/home", name="home")
      */
     public function index(TrickRepository $trickRepository): Response
     {
+        // $full = $this->GET['full'] ?? false;
+
         return $this->render('home/index.html.twig', [
-            'tricks' =>$trickRepository->displayLastTricks()
+            'tricks' =>$trickRepository->findAll()
         ]);
     }
 }
