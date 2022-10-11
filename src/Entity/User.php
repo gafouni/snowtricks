@@ -6,11 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -20,89 +22,48 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $lastName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
     private $password;
-
-    // /**
-    //  * @ORM\Column(type="string", length=255, nullable=true)
-    //  */
-    // private $role;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $pictureFile;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $tricks;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user", orphanRemoval=true)
      */
-    private $message;
+    private $Messages;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
      */
-    private $roles = [];
+    private $messages;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user")
+     */
+    private $tricks;
+
+    
 
     public function __construct()
     {
+        $this->messages = new ArrayCollection();
+        $this->Messages = new ArrayCollection();
         $this->tricks = new ArrayCollection();
-        $this->message = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -117,7 +78,47 @@ class User
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -129,38 +130,52 @@ class User
         return $this;
     }
 
-    // public function getRole(): ?array
-    // {
-    //     return $this->role;
-    // }
-
-    // public function setRole(?array $role): self
-    // {
-    //     $this->role = $role;
-
-    //     return $this;
-    // }
-
-    public function getIsVerified(): ?bool
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
     {
-        return $this->isVerified;
+        return null;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        $this->isVerified = $isVerified;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->Messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->Messages->contains($message)) {
+            $this->Messages[] = $message;
+            $message->setUser($this);
+        }
 
         return $this;
     }
 
-    public function getPictureFile(): ?string
+    public function removeMessage(Message $message): self
     {
-        return $this->pictureFile;
-    }
-
-    public function setPictureFile(string $pictureFile): self
-    {
-        $this->pictureFile = $pictureFile;
+        if ($this->Messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
 
         return $this;
     }
@@ -195,45 +210,5 @@ class User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Message>
-     */
-    public function getMessage(): Collection
-    {
-        return $this->message;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
-            $message->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->message->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getUser() === $this) {
-                $message->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getRoles(): ?array
-    {
-        return $this->roles;
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
+    
 }

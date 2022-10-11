@@ -34,11 +34,15 @@ class Message
     private $trick;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messages")
      */
     private $user;
 
+    
+
+    
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -91,4 +95,10 @@ class Message
 
         return $this;
     }
+
+    
+
+    
+
+    
 }
