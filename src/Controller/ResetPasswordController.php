@@ -35,6 +35,7 @@ class ResetPasswordController extends AbstractController
         $this->resetPasswordHelper = $resetPasswordHelper;
         $this->entityManager = $entityManager;
     }
+    
 
     /**
      * Display & process form to request a password reset.
