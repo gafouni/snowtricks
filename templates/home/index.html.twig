@@ -20,6 +20,13 @@
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
             <div class="row">
+
+                {# Message de confirmation d'email reussie #}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success" role="alert">{{ message }}</div>
+                {% endfor %}
+
+
                 {% for trick in tricks %}
                     <div class="col-lg-3">
 

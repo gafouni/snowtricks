@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    
+    <!-- Contact-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center" style="margin:3rem;">
+
+
+                <h1>Veuillez confirmer votre adresse mail!</h1>
+
+                <p>
+                    Veuillez confirmer votre adresse email en clicquant sur le lien suivant:<br><br>
+                    {# Please confirm your email address by clicking the following link:  #}
+                    <a href="{{ signedUrl }}">Confirmer mon Email</a>.
+                      Ce lien expirera dans   {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+                </p>
+
+                <p>
+                    Cheers!
+                </p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}                
