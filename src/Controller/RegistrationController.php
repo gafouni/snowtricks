@@ -49,7 +49,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation('App_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('no-reply@snowtricks.test', 'The Best Snowtricks'))
                     ->to($user->getEmail())
@@ -71,7 +71,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/verify/email", name="verify_email")
+     * @Route("/verify/email", name="App_verify_email")
      */
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
