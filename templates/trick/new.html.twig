@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Trick{% endblock %}
+
+{% block body %}
+
+   <!-- Contact-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center" style="margin:3rem;"> 
+        
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+
+                <h1 class="h3 mb-3 font-weight-bold">Proposez une nouvelle figure</h1><br><br>
+                {# <h1>Create new Trick</h1> #}
+
+                {{ include('trick/trick_form.html.twig') }}
+
+                <a href="{{ path('home') }}">Retour a la liste des figures</a>
+            </div>
+        </div> 
+    </section>       
+
+{% endblock %}

@@ -16,10 +16,10 @@ class TrickType extends AbstractType
             ->add('description')
             ->add('imgFile')
             ->add('videoFile')
-            ->add('slug')
-            ->add('createdAt')
+            // ->add('slug')
+            // ->add('createdAt')
             ->add('trickGroup')
-            ->add('user')
+            // ->add('user')
         ;
     }
 
