@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\TrickRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+// use Assert\TrickName;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TrickRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity(
+ *  fields={"trickName"},
+ *  message="Cette figure existe deja !"
+ * )
  */
 class Trick
 {
@@ -22,7 +29,7 @@ class Trick
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $trickName;
+    protected $trickName;
 
     /**
      * @ORM\Column(type="text")

@@ -47,4 +47,39 @@ class TrickController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/{id}/edit", name="edit_trick", methods={"GET", "POST"})
+     */
+    public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
+    {
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trickRepository->add($trick, true);
+
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('trick/edit.html.twig', [
+            'trick' => $trick,
+            'form' => $form,
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}", name="delete_trick", methods={"POST"})
+     */
+    public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
+            $trickRepository->remove($trick, true);
+        }
+
+        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+    }
+
+
 }
