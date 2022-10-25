@@ -14,14 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/trick/{id}", name="trick")
+     * @Route("/trick/{slug}", name="trick")
      */
-    public function showTrick(int $id, TrickRepository $trickRepository, Trick $trick): Response
+    public function showTrick($slug, TrickRepository $trickRepository, Trick $trick): Response
     {       
+        $trick = $trickRepository->findOneBy(['slug' =>$slug]);
 
         return $this->render('trick/show.html.twig', [
-            'trick' =>$trickRepository->find($id)
-            // 'controller_name' => 'trickController',
+            'trick' => $trick
+            
         ]);
     }
 
@@ -70,7 +71,7 @@ class TrickController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="delete_trick", methods={"POST"})
+     * @Route("/{id}", name="delete_trick", methods={"GET", "POST"})
      */
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
