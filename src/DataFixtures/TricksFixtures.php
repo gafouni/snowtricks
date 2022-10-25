@@ -43,9 +43,9 @@ class TricksFixtures extends Fixture
        
             // $password = $this->encoder->encodePassword($user, 'password');
             // $user->setPassword($password);
-            $user->setFirstName($faker->firstName);
-            $user->setLastName($faker->lastName);
-            $user->setPictureFile('maphoto');
+            // $user->setFirstName($faker->firstName);
+            // $user->setLastName($faker->lastName);
+            // $user->setPictureFile('maphoto');
             $user->setIsVerified($faker->numberBetween(0,1));
 
             $manager->persist($user);
@@ -73,7 +73,7 @@ class TricksFixtures extends Fixture
                         ->setDescription($faker->text())
                         ->setImgFile('/assets/img/ImagesBD/manipulation-g67b941e5c_1920.jpg')
                         ->setVideoFile('/assets/img/ImagesBD/manipulation-g67b941e5c_1920.jpg')
-                        ->setSlug($faker->slug())
+                        // ->setSlug($faker->slug())
                         ->setCreatedAt($faker->dateTimeBetween('-6 month', 'now'))
                         ->setTrickGroup($trickGroup)
                         ->setUser($user);

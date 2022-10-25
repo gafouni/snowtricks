@@ -2,13 +2,23 @@
 
 namespace App\Entity;
 
-use App\Repository\TrickRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+// use Assert\TrickName;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TrickRepository;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ *  fields={"trickName"},
+ *  message="Cette figure existe deja !"
+ * )
  */
 class Trick
 {
@@ -40,11 +50,13 @@ class Trick
     private $videoFile;
 
     /**
+     * @Gedmo\Slug(fields={"trickName"})
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -130,24 +142,24 @@ class Trick
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
+    // public function setSlug(string $slug): self
+    // {
+    //     $this->slug = $slug;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
+    // public function setCreatedAt(DateTimeInterface $createdAt): self
+    // {
+    //     $this->createdAt = $createdAt;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     
 

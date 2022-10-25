@@ -1,4 +1,16 @@
 {
+    "antishov/doctrine-extensions-bundle": {
+        "version": "1.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.4",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        },
+        "files": [
+            "./config/packages/stof_doctrine_extensions.yaml"
+        ]
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -49,6 +61,15 @@
             "./config/packages/doctrine_migrations.yaml",
             "./migrations/.gitignore"
         ]
+    },
+    "easycorp/easyadmin-bundle": {
+        "version": "3.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "b131e6cbfe1b898a508987851963fff485986285"
+        }
     },
     "phpunit/phpunit": {
         "version": "9.5",
