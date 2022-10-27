@@ -69,7 +69,7 @@
             <div class="card-deck">
                 <div class="card">                   
                     <div class="card-body">
-                        {# <p class="card-text"><small>Auteur:  {{ trick.user.firstName }} {{ trick.user.lastName }}</small></p> #}
+                        <p class="card-text"><small>Auteur:  {{ trick.user.email }}</small></p>
                     </div>
                 </div>
                 <div class="card">                   
@@ -89,7 +89,17 @@
             <br>
 
             {# Formulaire de depot d'un commentaire (A faire) #}
-
+            <div class="container px-5 my-5 px-5">
+                <div class="text-center mb-5"><br><br>
+                    {% if app.user %}
+                        <p class="lead mb-0 ">Ajouter un commentaire</p><br>
+                        {{ include('trick/messageForm.html.twig') }}
+                    {% else %}    
+                        <h4 style="color:#000000;">Connectez-vous pour ajouter un commentaire</h4><br>
+                        <a href="{{path('app_login')}}" class="btn btn-secondary">Connexion</a>
+                    {% endif %}    
+                </div>
+            </div>        
 
             {# Liste des commentaires #}
             
@@ -102,20 +112,26 @@
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-6">
                     <!-- Testimonial 1-->
-                    <!--Mettre ici la boucle For pour les messages-->
-                    <div class="card mb-4">
-                        <div class="card-body p-4">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
-                                <div class="ms-4">
-                                    <p class="mb-1">Thank you for putting together such a great product. We loved working with you and the whole team, and we will be recommending you to others!</p>
-                                    <div class="small text-muted">- Client Name, Location</div>
+                    {% if trick.message | length > 0 %}
+                        {% for message in trick %}
+                            <div class="card mb-4">
+                                <div class="card-body p-4">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
+                                        <div class="ms-4">
+                                            <div class="small text-muted">Ajoute le {{ message.createdad|date("d/m/y")}} par {#{{ message.user.email }}#}</div>
+                                            <p class="mb-1">{{ message.content|raw}}</p>
+                                            {# <div class="small text-muted">- Client Name, Location</div> #}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        {% endfor %}
+                    {% else %}
+                        <h3 style="color:black;">Aucun commentaire pour cette figure</h3>
+                    {% endif %}    
                     <!-- Testimonial 2-->
-                    <div class="card">
+                    {# <div class="card">
                         <div class="card-body p-4">
                             <div class="d-flex">
                                 <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
@@ -125,7 +141,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> #}
                 </div>
             </div>
         </div>

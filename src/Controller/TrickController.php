@@ -4,8 +4,13 @@ namespace App\Controller;
 
 
 use App\Entity\Trick;
+use DateTimeInterface;
+use App\Entity\Message;
 use App\Form\TrickType;
+use App\Form\MessageType;
 use App\Repository\TrickRepository;
+use App\Repository\MessageRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,13 +21,34 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/{slug}", name="trick")
      */
-    public function showTrick($slug, TrickRepository $trickRepository, Trick $trick): Response
+    public function showTrick($slug, Request $request, TrickRepository $trickRepository, Trick $trick, MessageRepository $messageRepository): Response
     {       
         $trick = $trickRepository->findOneBy(['slug' =>$slug]);
 
-        return $this->render('trick/show.html.twig', [
-            'trick' => $trick
+
+        //Partie: messages (espace de discussion dedie a une figure)
+
+        //Formulaire d'ajout d'un message
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        //Traitement du formulaire         
+        if ($form->isSubmitted() && $form->isValid()) {
             
+            $message->setCreatedAd(new \DateTime('now'));
+            $message->setTrick($trick);   
+            $message->setUser($this->getUser());   
+
+            $messageRepository->add($message, true);
+            
+            return $this->redirectToRoute('trick', ['slug' =>$trick->getSlug()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('trick/show.html.twig', [
+            'trick' => $trick,
+            //'message' => $message,
+            'form'=> $form->createView()
         ]);
     }
 
