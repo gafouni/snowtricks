@@ -80,10 +80,13 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
+        $this->denyAccessUnlessGranted('trick_edit', $trick, 'Vous ne pouvez pas modifier cette figure');
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //$trick->setUser($this->getUser());   
+
             $trickRepository->add($trick, true);
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
@@ -101,6 +104,8 @@ class TrickController extends AbstractController
      */
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
+        $this->denyAccessUnlessGranted('trick_delete', $trick, 'Vous ne pouvez pas supprimer cette figure');
+
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $trickRepository->remove($trick, true);
         }
