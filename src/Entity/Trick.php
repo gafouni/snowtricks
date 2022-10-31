@@ -64,7 +64,7 @@ class Trick
     
 
     /**
-     * @ORM\ManyToOne(targetEntity=TrickGroup::class, inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity=TrickGroup::class, inversedBy="trick")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trickGroup;
@@ -75,7 +75,7 @@ class Trick
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="trick")
      */
     private $user;
 

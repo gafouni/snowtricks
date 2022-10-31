@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 
+
 use App\Entity\Trick;
 use DateTimeInterface;
 use App\Entity\Message;
 use App\Form\TrickType;
 use App\Form\MessageType;
+use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +23,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/{slug}", name="trick")
      */
-    public function showTrick($slug, Request $request, TrickRepository $trickRepository, Trick $trick, MessageRepository $messageRepository): Response
+    public function showTrick($slug, Request $request, TrickRepository $trickRepository, Trick $trick, MessageRepository $messageRepository,  UserRepository $userRepository): Response
     {       
         $trick = $trickRepository->findOneBy(['slug' =>$slug]);
 
@@ -63,10 +65,16 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $trick->getCreatedAt(new \DateTime('now'));  
+            $trick->setUser($this->getUser());   
+
             $trickRepository->add($trick, true);
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
+
+        $flashMessage = $this->addFlash('success', 'Votre figure a ete creee avec succes !');
 
         return $this->renderForm('trick/new.html.twig', [
             'trick' => $trick,
@@ -80,7 +88,7 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-        $this->denyAccessUnlessGranted('trick_edit', $trick, 'Vous ne pouvez pas modifier cette figure');
+        // $this->denyAccessUnlessGranted('trick_edit', $trick, 'Vous ne pouvez pas modifier cette figure');
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
@@ -92,9 +100,13 @@ class TrickController extends AbstractController
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
+        $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
+
+
         return $this->renderForm('trick/edit.html.twig', [
             'trick' => $trick,
-            'form' => $form,
+            'form' => $form
+            // 'flashMessage' => $flashMessage
         ]);
     }
 
@@ -104,13 +116,16 @@ class TrickController extends AbstractController
      */
     public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-        $this->denyAccessUnlessGranted('trick_delete', $trick, 'Vous ne pouvez pas supprimer cette figure');
+        // $this->denyAccessUnlessGranted('trick_delete', $trick, 'Vous ne pouvez pas supprimer cette figure');
 
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $trickRepository->remove($trick, true);
         }
 
         return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+
+        $flashMessage = $this->addFlash('success', 'Votre figure a ete supprimee !');
+
     }
 
 
