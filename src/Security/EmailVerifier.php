@@ -11,7 +11,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class EmailVerifier
-{
+{ 
     private VerifyEmailHelperInterface $verifyEmailHelper;
     private MailerInterface $mailer;
     private EntityManagerInterface $entityManager;

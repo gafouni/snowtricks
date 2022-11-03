@@ -4,19 +4,24 @@
 
 {% block body %}
 
-<!-- Contact-->
+<!-- Contact--> 
     <section class="page-section" id="contact">
         <div class="container">
             <div class="text-center" style="margin:3rem;"> 
         
-                {% for flash_error in app.flashes('verify_email_error') %}
-                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-                {% endfor %}
+                {# {% for message in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ message }}</div>
+                {% endfor %} #}
+
+                
+
 
                 <h1 class="h3 mb-3 font-weight-normal">Inscrivez-vous</h1>
 
                 {# <div class="text-center" style="margin:1rem;"> #}
                 {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.firstName) }}
+                    {{ form_row(registrationForm.lastName) }}
                     {{ form_row(registrationForm.email) }}
                     {{ form_row(registrationForm.plainPassword, {
                         label: 'Password'

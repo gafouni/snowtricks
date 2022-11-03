@@ -37,7 +37,7 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
 
     public function remove(ResetPasswordRequest $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->remove($entity); 
 
         if ($flush) {
             $this->getEntityManager()->flush();

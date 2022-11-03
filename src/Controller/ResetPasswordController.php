@@ -38,7 +38,7 @@ class ResetPasswordController extends AbstractController
     
 
     /**
-     * Display & process form to request a password reset.
+     * Demande de reinitialisation du mot de passe, apres le click sur le lien "Mot de passe oublie"
      *
      * @Route("/forgot_password_request", name="forgot_password_request")
      */
@@ -61,7 +61,7 @@ class ResetPasswordController extends AbstractController
     }
 
     /**
-     * Confirmation page after a user has requested a password reset.
+     * Page de Confirmation de la demande de reinitialisation du Mdp.
      *
      * @Route("/check-email", name="app_check_email")
      */
@@ -83,7 +83,8 @@ class ResetPasswordController extends AbstractController
      *
      * @Route("/reset/{token}", name="app_reset_password")
      */
-    public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher, TranslatorInterface $translator, string $token = null): Response
+    public function reset(Request $request, UserPasswordHasherInterface $userPasswordHasher, 
+    TranslatorInterface $translator, string $token = null): Response
     {
         if ($token) {
             // We store the token in session and remove it from the URL, to avoid the URL being
@@ -107,7 +108,7 @@ class ResetPasswordController extends AbstractController
                 $translator->trans($e->getReason(), [], 'ResetPasswordBundle')
             ));
 
-            return $this->redirectToRoute('app_forgot_password_request');
+            return $this->redirectToRoute('forgot_password_request');
         }
 
         // The token is valid; allow the user to change their password.
@@ -130,7 +131,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('/login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('reset_password/reset.html.twig', [
@@ -166,7 +167,7 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('haouabouna@gmail.com', 'The Best Snowtricks'))
+            ->from(new Address('contact@snowtricks.test', 'The Best Snowtricks'))
             ->to($user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('reset_password/email.html.twig')
