@@ -35,6 +35,7 @@ class RegistrationController extends AbstractController
      UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
+        $roles = $user->getRoles();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -46,10 +47,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            //$user->setRoles([$roles]);
+            $user->setRoles($roles, []);
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            // $flashMessage = $this->addFlash('succes', "Vous venez de recevoir un mail de confirmation");
+
 
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('App_verify_email', $user,
@@ -60,11 +64,16 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
+            //  $this->addFlash('success', 'Vous etes connectes !');
+            
+            $flashMessage = $this->addFlash('succes', "Vous venez de recevoir un mail de confirmation");
+                
 
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
-                $request
+                $request,
+        
             );
         }
 

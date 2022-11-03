@@ -127,6 +127,9 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        <div class="d-flex justify-content-center">
+                            {{ knp_pagination_render(messages, 'trick/pagination.html.twig') }}
+                        </div>    
                     {% else %}
                         <h3 style="color:black;">Aucun commentaire pour cette figure</h3>
                     {% endif %}    
@@ -147,7 +150,7 @@
         </div>
     {# </section> #}
 
-            <div class="col-lg-3 mx-auto text-center"><button class="btn btn-sm btn-info btn-sm text-uppercase disabled" id="submitButton" type="submit">Voir plus</button></div>
+            {# <div class="col-lg-3 mx-auto text-center"><button class="btn btn-sm btn-info btn-sm text-uppercase disabled" id="submitButton" type="submit">Voir plus</button></div> #}
 
 
             {# <form id="contactForm" data-sb-form-api-token="API_TOKEN">

@@ -2,6 +2,7 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\Trick;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -24,7 +25,7 @@ class TricksVoter extends Voter
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::EDIT, self::DELETE])
-            && $trick instanceof \App\Entity\Tricks;
+            && $trick instanceof Trick;
     }
 
     protected function voteOnAttribute(string $attribute, $trick, TokenInterface $token): bool
@@ -55,12 +56,12 @@ class TricksVoter extends Voter
         return false;
     }
 
-    private function canEdit(Trick $trick, User $user){
+    private function canEdit(Trick $trick, $user){
         //Le proprietaire de la figure peut la modifier
         return $user === $trick->getUser();
     }
 
-    private function canDelete(Trick $trick, User $user){
+    private function canDelete(Trick $trick, $user){
         //Le proprietaire de la figure peut la supprimer
         
         return $user === $trick->getUser();
