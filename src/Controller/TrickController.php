@@ -34,17 +34,20 @@ class TrickController extends AbstractController
 
 
         //Partie: messages (espace de discussion dedie a une figure)
-
+        
         //Formulaire d'ajout d'un message
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
-        $result = $paginator->paginate(
-            $trick->getMessage(),
+        $data = $trick->getMessage();
+
+        $messages = $paginator->paginate(
+            $data,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 10)
+            3
         );
+        // var_dump($messages);
 
         //Traitement du formulaire         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,7 +63,8 @@ class TrickController extends AbstractController
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
-            'messages' => $result,
+            // 'messages' => $messageRepository->findAll(),
+            'messages' => $messages,
             'form'=> $form->createView()
         ]);
     }
