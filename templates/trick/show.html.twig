@@ -35,13 +35,13 @@
                     </div> #}
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="../assets/img/ImagesBD/pexels-flo-maderebner-851095.jpg" alt="Card image cap">
+                    <img class="card-img-top" src="../assets/img/header/snow-gd6ad1dcb3_1920.jpg" alt="Card image cap">
                     {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>                        
                     </div> #}
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="{{ trick.videoFile }}" alt="Card image cap">
+                    <a href="{{ asset('trick' ~ trick.videoFile) }}">Voir</a>
                     {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                     </div> #}
@@ -89,7 +89,7 @@
                         <p class="lead mb-0 ">Ajouter un commentaire</p><br>
                         {{ include('trick/messageForm.html.twig') }}
                     {% else %}    
-                        <h4 style="color:#000000;">Connectez-vous pour ajouter un commentaire</h4><br>
+                        <h5 style="color:#ffffff;">Connectez-vous pour ajouter un commentaire</h5><br>
                         <a href="{{path('app_login')}}" class="btn btn-secondary">Connexion</a>
                     {% endif %}    
                 </div>
@@ -126,7 +126,7 @@
                                 {{ knp_pagination_render(messages, 'trick/pagination.html.twig') }}
                             </div>    
                         {% else %}
-                            <p style="color:black;">Aucun commentaire pour cette figure</p>
+                            <h5 style="color:#ffffff;">Aucun commentaire pour cette figure</h5>
                         {% endif %}    
                         <!-- Testimonial 2-->
                         

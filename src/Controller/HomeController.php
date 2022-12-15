@@ -17,15 +17,14 @@ class HomeController extends AbstractController
     public function index(Request $request, TrickRepository $trickRepository): Response
     {
         
-        // $full = $this->request->query->get('full') ?? false;
         $full = $request->query->get('full') ?? false;
-        $limit = 12;
+        $page = 1;
         
-
         return $this->render('home/index.html.twig', [
-            'tricks' =>$trickRepository->findAll($full, $limit),
-            ['createdAt' => 'desc'],
+            'tricks' =>$trickRepository->findByLimit($full, $page),
+            //['createdAt' => 'desc'],
             'full'=>$full
+                   
         ]);
     }
 }

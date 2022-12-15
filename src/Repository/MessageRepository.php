@@ -39,6 +39,19 @@ class MessageRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findByExampleField($value): array
+    {
+       return $this->createQueryBuilder('m')
+           ->andWhere('m.exampleField = :val')
+           ->setParameter('val', $value)
+           ->orderBy('m.id', 'ASC')
+           ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */

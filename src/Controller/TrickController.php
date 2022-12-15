@@ -10,6 +10,7 @@ use DateTimeInterface;
 use App\Entity\Message;
 use App\Form\TrickType;
 use App\Form\MessageType;
+use App\Service\FileUploader;
 use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
 use App\Repository\MessageRepository;
@@ -81,6 +82,13 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // /** @var UploadedFile $videoFile */
+            // $fileUploader = new FileUploader;
+            // $video = $form->get('video')->getData();
+            // if ($video) {
+            //     $videoFile = $fileUploader->upload($video);
+            //     $trick->setVideoFile($videoFile);
+            // }
             $trick->getCreatedAt(new \DateTime('now'));  
             $trick->setUser($this->getUser());   
 
@@ -131,8 +139,10 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}", name="delete_trick", methods={"GET", "POST"})
      */
-    public function delete(Request $request, Trick $trick, TrickRepository $trickRepository): Response
+    public function delete(Request $request, TrickRepository $trickRepository): Response
     {
+        $trick = new Trick;
+        
         $this->denyAccessUnlessGranted('trick_delete', $trick, 'Vous ne pouvez pas supprimer cette figure');
 
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
