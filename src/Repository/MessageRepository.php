@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Message;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Message>
@@ -40,16 +41,33 @@ class MessageRepository extends ServiceEntityRepository
     }
 
 
-    public function findByExampleField($value): array
+    public function findPaginatedMessages($page = 1, $limit = 3): array
     {
-       return $this->createQueryBuilder('m')
-           ->andWhere('m.exampleField = :val')
-           ->setParameter('val', $value)
-           ->orderBy('m.id', 'ASC')
-           ->setMaxResults(10)
-           ->getQuery()
-           ->getResult()
-       ;
+        $result = [];
+        
+        $query = $this->createQueryBuilder('m')
+           ->orderBy('m.id', 'DESC')
+           ->setMaxResults($limit)
+           ->setFirstResult(($page - 1) * $limit);
+
+        $paginator = new Paginator($query);
+        $data = $paginator->getQuery()->getResult();
+
+        //Cas ou il n'y a pas de donnees
+        if(empty($data)){
+            return $result;
+        }
+           
+        //On calcule le nombre de page
+        $pages = ceil($paginator->count() / $limit);
+
+        //On remplit le tableau
+        $result['data'] = $data;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
+
+       return $result;
    }
 
 //    /**

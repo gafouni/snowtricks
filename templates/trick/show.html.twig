@@ -122,8 +122,13 @@
                                 </div>
                             {% endfor %}
                             <div class="d-flex justify-content-center">
+                                {% set path = 'trick' %}
+                                {% set slug = trick.slug %}
+                                {% set pages = messages.pages %}
+                                {% set currentPage = messages.page %}
                                 {# {% do messages.setPageRange(3)%}  #}
-                                {{ knp_pagination_render(messages, 'trick/pagination.html.twig') }}
+                                {# {{ knp_pagination_render(messages, 'trick/pagination.html.twig') }} #}
+                                {% include "trick/pagination.html.twig" %}
                             </div>    
                         {% else %}
                             <h5 style="color:#ffffff;">Aucun commentaire pour cette figure</h5>

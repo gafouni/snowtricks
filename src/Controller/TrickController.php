@@ -43,12 +43,13 @@ class TrickController extends AbstractController
 
         $data = $trick->getMessage();
 
-        $messages = $paginator->paginate(
-            $data,
-            $request->query->getInt('page', 1),
-            3
+        //On va chercher le numero de page dans l'url
+        $page = $request->query->getInt('page', 1);
+
+        //Liste des messages laisses sur une figure
+        $messages = $messageRepository->findPaginatedMessages(
+            $page, 3
         );
-        // var_dump($messages);
 
         //Traitement du formulaire         
         if ($form->isSubmitted() && $form->isValid()) {
