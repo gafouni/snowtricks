@@ -47,9 +47,10 @@ class TrickController extends AbstractController
         $page = $request->query->getInt('page', 1);
 
         //Liste des messages laisses sur une figure
-        $messages = $messageRepository->findPaginatedMessages(
+        $messages = $messageRepository->findPaginatedMessages($trick, 
             $page, 3
         );
+        //dd($messages);
 
         //Traitement du formulaire         
         if ($form->isSubmitted() && $form->isValid()) {
