@@ -41,7 +41,10 @@
                     </div> #}
                 </div>
                 <div class="card">
-                    <a href="{{ asset('trick' ~ trick.videoFile) }}">Voir</a>
+                    <iframe width="349" height="259" src="{{ trick.videoFile }}" 
+                    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                     encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    {# <a href="{{ asset('trick' ~ trick.videoFile) }}">Voir</a> #}
                     {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                     </div> #}
@@ -106,7 +109,9 @@
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-6">
                         <!-- Testimonial 1-->
-                        {% if messages.data | length > 0 %}
+                        {% if messages.data is empty%}
+                            <h5 style="color:#ffffff;">Aucun commentaire pour cette figure</h5>
+                        {% else %}
                             {% for message in messages.data %}
                                 <div class="card mb-4">
                                     <div class="card-body p-4">
@@ -129,9 +134,7 @@
                                 {# {% do messages.setPageRange(3)%}  #}
                                 {# {{ knp_pagination_render(messages, 'trick/pagination.html.twig') }} #}
                                 {% include "trick/pagination.html.twig" %}
-                            </div>    
-                        {% else %}
-                            <h5 style="color:#ffffff;">Aucun commentaire pour cette figure</h5>
+                            </div>                               
                         {% endif %}    
                         <!-- Testimonial 2-->
                         

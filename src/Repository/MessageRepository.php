@@ -56,9 +56,9 @@ class MessageRepository extends ServiceEntityRepository
         $data = $paginator->getQuery()->getResult();
 
         //Cas ou il n'y a pas de donnees
-        if(empty($data)){
-            return $result;
-        }
+        // if(empty($data)){
+        //     return $result;
+        // }
            
         //On calcule le nombre de page
         $pages = ceil($paginator->count() / $limit);

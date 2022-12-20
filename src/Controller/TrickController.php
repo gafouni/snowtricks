@@ -10,7 +10,7 @@ use DateTimeInterface;
 use App\Entity\Message;
 use App\Form\TrickType;
 use App\Form\MessageType;
-use App\Service\FileUploader;
+//use App\Service\FileUploader;
 use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
 use App\Repository\MessageRepository;
@@ -50,7 +50,7 @@ class TrickController extends AbstractController
         $messages = $messageRepository->findPaginatedMessages($trick, 
             $page, 3
         );
-        //dd($messages);
+        
 
         //Traitement du formulaire         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,7 +66,6 @@ class TrickController extends AbstractController
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
-            // 'messages' => $messageRepository->findAll(),
             'messages' => $messages,
             'form'=> $form->createView()
         ]);
@@ -84,13 +83,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // /** @var UploadedFile $videoFile */
-            // $fileUploader = new FileUploader;
-            // $video = $form->get('video')->getData();
-            // if ($video) {
-            //     $videoFile = $fileUploader->upload($video);
-            //     $trick->setVideoFile($videoFile);
-            // }
+            
             $trick->getCreatedAt(new \DateTime('now'));  
             $trick->setUser($this->getUser());   
 
@@ -111,10 +104,12 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}/edit", name="edit_trick", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Trick $trick, TrickRepository $trickRepository): Response
+    public function edit(Request $request, TrickRepository $trickRepository): Response
     {
-            $this->denyAccessUnlessGranted('trick_edit', $trick);       
-        
+            $trick = new Trick();
+            $this->denyAccessUnlessGranted('trick_edit', $trick);    
+
+            
             $form = $this->createForm(TrickType::class, $trick);
             $form->handleRequest($request);
 
