@@ -104,24 +104,24 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}/edit", name="edit_trick", methods={"GET", "POST"})
      */
-    public function edit(Request $request, TrickRepository $trickRepository): Response
+    public function edit(int $id, Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {
-            $trick = new Trick();
-            $this->denyAccessUnlessGranted('trick_edit', $trick);    
+        
+        // $this->denyAccessUnlessGranted('trick_edit', $trick);    
+      
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
 
-            
-            $form = $this->createForm(TrickType::class, $trick);
-            $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$trick->setUser($this->getUser());   
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                //$trick->setUser($this->getUser());   
+            $this->getDoctrine()->getManager()->flush();
+            //$trickRepository->add($trick, true);
 
-                $trickRepository->add($trick, true);
+            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        }
 
-                return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-            }
-
-            $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
+        $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
 
         // $flashMessage = $this->addFlash('danger', 'Attention, vous ne pouvez pas modifier cette figure');
 
@@ -136,7 +136,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/{id}", name="delete_trick", methods={"GET", "POST"})
      */
-    public function delete(Request $request, TrickRepository $trickRepository): Response
+    public function delete(Request $request): Response
     {
         $trick = new Trick;
         

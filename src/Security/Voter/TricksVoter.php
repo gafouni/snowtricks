@@ -22,7 +22,7 @@ class TricksVoter extends Voter
  
     protected function supports(string $attribute, $trick): bool
     {
-        // replace with your own logic
+        
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::EDIT, self::DELETE])
             && $trick instanceof Trick;
@@ -57,12 +57,12 @@ class TricksVoter extends Voter
     }
 
     private function canEdit(Trick $trick, $user){
-        //Le proprietaire de la figure peut la modifier
+        //L'auteur de la figure peut la modifier
         return $user === $trick->getUser();
     }
 
     private function canDelete(Trick $trick, $user){
-        //Le proprietaire de la figure peut la supprimer
+        //L'auteur de la figure peut la supprimer
         
         return $user === $trick->getUser();
     }
