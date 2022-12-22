@@ -3,7 +3,8 @@
 ---------------------------------
 ## Installation
 * Cloner le depot:  git clone https://github.com/gafouni/snowtricks.git
-* Telecharger les dependances:  composer install
+* Telecharger les dependances:  
+  composer install
 * Parametrer la base de donnees:  editer le fichier intitule ".env", modifier les valeurs de parametrage de la base de donnees 
 * Creer la base de donnees:  importer le fichier "snowtricks.sql" situe a la racine du projet
 * Envoi de mails:  Si vous souhaitez utiliser un serveur de mail afin d'envoyer des mails,  vous pouvez le configurer dans le fichier ".env", dans la partie MAILER_URL.  Pour ce projet, j'ai utilise Mailtrap pour le transport de mails.
