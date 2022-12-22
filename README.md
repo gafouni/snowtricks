@@ -18,5 +18,5 @@
   Pour ce projet, j'ai utilise Mailtrap pour le transport de mails.
   
 * Lancer le projet:  
-  lancer le serveur de developpement (Xampp ou autre) 
+  lancer le serveur de developpement (Xampp ou autre)  
   lancer le serveur de symfony: symfony server:start  
