@@ -17,7 +17,7 @@ class TrickType extends AbstractType
             ->add('trickName')
             ->add('description')
             ->add('imgFile')
-            ->add('videoFile', FileType::class, 
+            ->add('videoFile'
             // [
             //     // 'label'=>'Video de la figure',
             //     // // 'mapped'=>false,
