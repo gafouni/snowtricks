@@ -8,17 +8,17 @@
     <header class="masthead">
         <div class="container">
             <div class="masthead-subheading"></div>
-            <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-info btn-xl text-uppercase" href="#services">Tell Me More</a>
+            <div class="masthead-heading text-uppercase">The Best Snowtricks</div>
+            <a class="btn btn-info btn-xl text-uppercase" href="{{ path('register') }}">Rejoignez-nous!</a>
         </div>
     </header>
 
     <section class="page-section bg-light" id="team">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                <h3 class="section-subheading text-muted">Rejoignez la communaute, creez votre compte ou connectez-vous afin de
-                    partager vos plus belles figures de snowboard</h3>
+                <h2 class="section-heading text-uppercase">Comment realiser vos figures favorites ?</h2>
+                <h3 class="section-subheading text-muted">Ce site présente quelques figures de snowboard parmi les plus celebres. 
+                    Une fois maîtrisées, elles constitueront une base solide pour développer vos compétences de ride.</h3>
             </div>
             <div class="row">
 
@@ -27,7 +27,7 @@
                     <div class="alert alert-success" role="alert">{{ message }}</div>
                 {% endfor %}
 
-
+                {# affichage de la liste des figures #}
                 {% for trick in tricks %}
                     <div class="col-lg-3">
 
@@ -36,22 +36,20 @@
                             <img class="mx-auto" src="{{ trick.imgFile }}" alt="figure de snowboard" />                           
                             <a href="{{ path('trick', {slug:trick.slug})}}">{{ trick.trickName }}</a>
 
-                            {# {% if is_granted("trick_edit", trick) %} #}
+                            {%  if app.user %}
                                 <a href="{{ path('edit_trick', {id:trick.id}) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                                     </svg>
                                 </a>
-                            {# {% endif %} #}
-
-                            {# {% if is_granted("trick_delete", trick) %} #}
-                            <a href="{{ path('delete_trick', {id:trick.id}) }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                </svg>
-                            </a>
-                            {# {% endif %} #}
+                            
+                                <a href="{{ path('delete_trick', {id:trick.id}) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                    </svg>
+                                </a>
+                            {% endif %}
                             
                             {# <p class="text-muted">{{  trick.description }}</p>
                             <h6>Ajoute le{{ trick.createdAt|date('d/m/y') }}</h6> #}
@@ -64,12 +62,16 @@
             {# Pager #}
             
             <div class="row">
-                {# {% if full == false %} #}
-                    <div class="col-lg-3 mx-auto text-center"><button class="btn btn-sm btn-info btn-xl text-uppercase disabled" id="submitButton" type="submit">Voir plus</button></div>
-                    {# <div class="d-flex justify-content-end mb-4"><a class="btn btn-secondary text-uppercase" href="/&full=1">Voir plus →</a></div> #}
+                {# <div class="d-flex justify-content-end mb-4"><a class="btn btn-secondary text-uppercase" href="{{ path('home', {full:1}) }}">Voir plus →</a></div> #}
 
-                    {# <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div> #}
-                {# {% endif %} #}
+                {% if full == false %}
+                    
+                    <div class="d-flex justify-content-end mb-4">
+                    <a class="btn btn-secondary text-uppercase" href="{{ path('home', {full:1}) }}">Voir plus →</a></div>
+                {% else %}
+                    <div class="d-flex justify-content-end mb-4">
+                    <a class="btn btn-secondary text-uppercase" href="{{ path('home') }}">Voir moins →</a></div>
+                {% endif %}
             </div> 
             
         </div>

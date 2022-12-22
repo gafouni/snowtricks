@@ -12,13 +12,7 @@
                 {# <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3> #}
             </div>
             <!-- * * * * * * * * * * * * * * *-->
-            <!-- * * SB Forms Contact Form * *-->
-            <!-- * * * * * * * * * * * * * * *-->
-            <!-- This form is pre-integrated with SB Forms.-->
-            <!-- To make this form functional, sign up at-->
-            <!-- https://startbootstrap.com/solution/contact-forms-->
-            <!-- to get an API token!-->
-
+            
             {# Image principale #}
             <div class="row">
                 <div class="col-md-2">
@@ -30,7 +24,7 @@
                 </div>
                 <div class="col-md-2">
                 </div>
-
+            </div>
 
             {# Petites images et video #}
             <div class="card-deck">
@@ -41,13 +35,16 @@
                     </div> #}
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="../assets/img/ImagesBD/pexels-flo-maderebner-851095.jpg" alt="Card image cap">
+                    <img class="card-img-top" src="../assets/img/header/snow-gd6ad1dcb3_1920.jpg" alt="Card image cap">
                     {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>                        
                     </div> #}
                 </div>
                 <div class="card">
-                    <img class="card-img-top" src="{{ trick.videoFile }}" alt="Card image cap">
+                    <iframe width="349" height="259" src="{{ trick.videoFile }}" 
+                    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                     encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    {# <a href="{{ asset('trick' ~ trick.videoFile) }}">Voir</a> #}
                     {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                     </div> #}
@@ -95,7 +92,7 @@
                         <p class="lead mb-0 ">Ajouter un commentaire</p><br>
                         {{ include('trick/messageForm.html.twig') }}
                     {% else %}    
-                        <h4 style="color:#000000;">Connectez-vous pour ajouter un commentaire</h4><br>
+                        <h5 style="color:#ffffff;">Connectez-vous pour ajouter un commentaire</h5><br>
                         <a href="{{path('app_login')}}" class="btn btn-secondary">Connexion</a>
                     {% endif %}    
                 </div>
@@ -103,117 +100,49 @@
 
             {# Liste des commentaires #}
             
-    {# <section class="py-5 border-bottom"> #}
-        <div class="container px-5 my-5 px-5">
-            <div class="text-center mb-5">
-                {# <h2 class="fw-bolder" style="color:white">Customer testimonials</h2> #}
-                <p class="lead mb-0 ">Liste des commentaires</p>
-            </div>
-            <div class="row gx-5 justify-content-center">
-                <div class="col-lg-6">
-                    <!-- Testimonial 1-->
-                    {% if trick.message | length > 0 %}
-                        {% for message in trick %}
-                            <div class="card mb-4">
-                                <div class="card-body p-4">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
-                                        <div class="ms-4">
-                                            <div class="small text-muted">Ajoute le {{ message.createdad|date("d/m/y")}} par {#{{ message.user.email }}#}</div>
-                                            <p class="mb-1">{{ message.content|raw}}</p>
-                                            {# <div class="small text-muted">- Client Name, Location</div> #}
+            {# <section class="py-5 border-bottom"> #}
+            <div class="container px-5 my-5 px-5">
+                <div class="text-center mb-5">
+                    {# <h2 class="fw-bolder" style="color:white">Customer testimonials</h2> #}
+                    <p class="lead mb-0 ">Liste des commentaires</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-6">
+                        <!-- Testimonial 1-->
+                        {% if messages.data is empty%}
+                            <h5 style="color:#ffffff;">Aucun commentaire pour cette figure</h5>
+                        {% else %}
+                            {% for message in messages.data %}
+                                <div class="card mb-4">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
+                                            <div class="ms-4">
+                                                <div class="small text-muted">Ajoute le {{ message.createdad|date("d/m/y") }} par {{ message.user.firstName }} {{ message.user.lastName }}</div>
+                                                <p class="mb-1">{{ message.content|raw}}</p>
+                                                {# <div class="small text-muted">- Client Name, Location</div> #}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                        <div class="d-flex justify-content-center">
-                            {{ knp_pagination_render(messages, 'trick/pagination.html.twig') }}
-                        </div>    
-                    {% else %}
-                        <h3 style="color:black;">Aucun commentaire pour cette figure</h3>
-                    {% endif %}    
-                    <!-- Testimonial 2-->
-                    {# <div class="card">
-                        <div class="card-body p-4">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
-                                <div class="ms-4">
-                                    <p class="mb-1">The whole team was a huge help with putting things together for our company and brand. We will be hiring them again in the near future for additional work!</p>
-                                    <div class="small text-muted">- Client Name, Location</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> #}
+                            {% endfor %}
+                            <div class="d-flex justify-content-center">
+                                {% set path = 'trick' %}
+                                {% set slug = trick.slug %}
+                                {% set pages = messages.pages %}
+                                {% set currentPage = messages.page %}
+                                {# {% do messages.setPageRange(3)%}  #}
+                                {# {{ knp_pagination_render(messages, 'trick/pagination.html.twig') }} #}
+                                {% include "trick/pagination.html.twig" %}
+                            </div>                               
+                        {% endif %}    
+                        <!-- Testimonial 2-->
+                        
+                    </div>
                 </div>
             </div>
+    
         </div>
-    {# </section> #}
-
-            {# <div class="col-lg-3 mx-auto text-center"><button class="btn btn-sm btn-info btn-sm text-uppercase disabled" id="submitButton" type="submit">Voir plus</button></div> #}
-
-
-            {# <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                <div class="row align-items-stretch mb-5">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <!-- Name input-->
-                            <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                        </div>
-                        <div class="form-group">
-                            <!-- Email address input-->
-                            <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                            <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                            <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                        </div>
-                        <div class="form-group mb-md-0">
-                            <!-- Phone number input-->
-                            <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group form-group-textarea mb-md-0">
-                            <!-- Message input-->
-                            <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
-                            <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Submit success message-->
-                <!---->
-                <!-- This is what your users will see when the form-->
-                <!-- has successfully submitted-->
-                <div class="d-none" id="submitSuccessMessage">
-                    <div class="text-center text-white mb-3">
-                        <div class="fw-bolder">Form submission successful!</div>
-                        To activate this form, sign up at
-                        <br />
-                        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                    </div>
-                </div>
-                <!-- Submit error message-->
-                <!---->
-                <!-- This is what your users will see when there is-->
-                <!-- an error submitting the form-->
-                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                <!-- Submit Button-->
-                <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
-            </form> #}
-        </div>
-    </section>
-
-    {# <div class="col-lg-3">
-
-        {# Card #}
-        {# <div class="team-member">
-            {# <img class="mx-auto" src="{{ trick.imgFile }}" alt="figure de snowboard" />                            #}
-            {# <h4>{{ trick.trickName }}</h4>
-            <p class="text-muted">{{  trick.description }}</p>
-            <h6>Ajoute le{{ trick.createdAt|date('d/m/y') }}</h6>
-        </div>
-    </div>  #}
-
+    </section>    
 
 {% endblock %}

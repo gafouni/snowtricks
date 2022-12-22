@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Trick|null find($id, $lockMode = null, $lockVersion = null)
  * @method Trick|null findOneBy(array $criteria, array $orderBy = null)
  * @method Trick[]    findAll()
- * @method Trick[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Trick[]    findBy(array $criteria, array $orderBy = desc, $limit = null, $offset = null)
  */
 class TrickRepository extends ServiceEntityRepository
 {
@@ -42,13 +42,25 @@ class TrickRepository extends ServiceEntityRepository
      /**
      * @return Trick[] Returns an array of Trick objects
      */
-    public function DisplayLastTricks(){
+    public function findByLimit($full = false, $page, $limit = 12){
 
-        return $this->createQueryBuilder('t')
+        if($full > 0){
+            return $this->createQueryBuilder('t')
+                    ->setFirstResult(($page - 1) * $limit)
+                    ->orderBy('t.id', 'DESC')
+                    //->setMaxResults(12)
+                    ->getQuery()
+                    ->getResult();
+        }else{
+            return $this->createQueryBuilder('t')
+                    ->setFirstResult(($page - 1) * $limit)
                     ->orderBy('t.id', 'DESC')
                     ->setMaxResults(12)
                     ->getQuery()
                     ->getResult();
+        }
+
+        
     }
 
 //  /**

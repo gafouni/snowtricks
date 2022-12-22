@@ -6,6 +6,7 @@ use App\Entity\Trick;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class TrickType extends AbstractType
 {
@@ -16,7 +17,13 @@ class TrickType extends AbstractType
             ->add('trickName')
             ->add('description')
             ->add('imgFile')
-            ->add('videoFile')
+            ->add('videoFile'
+            // [
+            //     // 'label'=>'Video de la figure',
+            //     // // 'mapped'=>false,
+            //     // 'required'=>false,
+            // ]
+            )
             // ->add('slug')
             // ->add('createdAt')
             ->add('trickGroup')
