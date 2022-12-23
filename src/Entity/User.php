@@ -80,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->messages = new ArrayCollection();
-        $this->Messages = new ArrayCollection();
+        //$this->Messages = new ArrayCollection();
         $this->tricks = new ArrayCollection();
     }
 
@@ -200,7 +200,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        
     }
 
     /**

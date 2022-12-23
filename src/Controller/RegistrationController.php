@@ -10,7 +10,6 @@ use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface; 
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -52,7 +51,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // $flashMessage = $this->addFlash('succes', "Vous venez de recevoir un mail de confirmation");
+            
 
 
             // generate a signed url and email it to the user
@@ -63,8 +62,8 @@ class RegistrationController extends AbstractController
                     ->subject('Confirmation de votre adresse mail')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
-            //  $this->addFlash('success', 'Vous etes connectes !');
+            
+            
             
             $flashMessage = $this->addFlash('succes', "Vous venez de recevoir un mail de confirmation");
                 
@@ -98,7 +97,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('register');
         }
 
-        // @TODO Change the redirect on success and handle or remove the flash message in your templates
+        
         $this->addFlash('success', 'Votre adresse email a bien ete validee.');
 
 
