@@ -20,9 +20,7 @@ final class Version20221008153812 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        // $this->addSql('ALTER TABLE trick ADD user_id INT NOT NULL');
-        // $this->addSql('ALTER TABLE trick ADD CONSTRAINT FK_D8F0A91EA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        // $this->addSql('CREATE INDEX IDX_D8F0A91EA76ED395 ON trick (user_id)');
+        
     }
 
     public function down(Schema $schema): void

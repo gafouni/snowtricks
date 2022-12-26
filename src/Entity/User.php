@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user", orphanRemoval=true)
      */
-    private $Messages;
+    //private $Messages;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user")
@@ -80,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->messages = new ArrayCollection();
-        $this->Messages = new ArrayCollection();
+        //$this->Messages = new ArrayCollection();
         $this->tricks = new ArrayCollection();
     }
 

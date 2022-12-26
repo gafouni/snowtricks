@@ -41,7 +41,7 @@ class MessageRepository extends ServiceEntityRepository
     }
 
 
-    public function findPaginatedMessages($trick, $page = 1, $limit = 3): array
+    public function findPaginatedMessages(Trick $trick, $page = 1, $limit = 3): array
     {
         $result = [];
         
@@ -55,10 +55,7 @@ class MessageRepository extends ServiceEntityRepository
         $paginator = new Paginator($query);
         $data = $paginator->getQuery()->getResult();
 
-        //Cas ou il n'y a pas de donnees
-        // if(empty($data)){
-        //     return $result;
-        // }
+        
            
         //On calcule le nombre de page
         $pages = ceil($paginator->count() / $limit);
@@ -72,28 +69,7 @@ class MessageRepository extends ServiceEntityRepository
        return $result;
    }
 
-//    /**
-//     * @return Message[] Returns an array of Message objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
 
-//    public function findOneBySomeField($value): ?Message
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   
+   
 }

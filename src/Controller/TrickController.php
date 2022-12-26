@@ -10,7 +10,6 @@ use DateTimeInterface;
 use App\Entity\Message;
 use App\Form\TrickType;
 use App\Form\MessageType;
-//use App\Service\FileUploader;
 use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
 use App\Repository\MessageRepository;
@@ -113,17 +112,17 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$trick->setUser($this->getUser());   
+             
 
             $this->getDoctrine()->getManager()->flush();
-            //$trickRepository->add($trick, true);
+            
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
 
         $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
 
-        // $flashMessage = $this->addFlash('danger', 'Attention, vous ne pouvez pas modifier cette figure');
+        
 
 
         return $this->renderForm('trick/edit.html.twig', [

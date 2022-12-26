@@ -21,8 +21,8 @@ final class Version20220901133820 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE message ADD user_id INT NOT NULL');
-        // $this->addSql('ALTER TABLE message ADD CONSTRAINT FK_B6BD307FA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        // $this->addSql('CREATE INDEX IDX_B6BD307FA76ED395 ON message (user_id)');
+        
+        
     }
 
     public function down(Schema $schema): void
