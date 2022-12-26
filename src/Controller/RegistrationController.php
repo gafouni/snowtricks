@@ -61,11 +61,12 @@ class RegistrationController extends AbstractController
                     ->to($user->getEmail())
                     ->subject('Confirmation de votre adresse mail')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
+                    
             );
             
             
             
-            $flashMessage = $this->addFlash('succes', "Vous venez de recevoir un mail de confirmation");
+            //$flashMessage = $this->addFlash('succes', "Vous venez de recevoir un mail de confirmation");
                 
 
             return $userAuthenticator->authenticateUser(

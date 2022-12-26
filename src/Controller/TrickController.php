@@ -26,7 +26,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/{slug}", name="trick")
      */
-    public function showTrick($slug, Request $request, TrickRepository $trickRepository, 
+    public function showTrick(string $slug, Request $request, TrickRepository $trickRepository, 
         Trick $trick, MessageRepository $messageRepository,  
         UserRepository $userRepository,
         PaginatorInterface $paginator): Response
