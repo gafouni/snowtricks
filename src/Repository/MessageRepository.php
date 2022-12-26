@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Trick;
 use App\Entity\Message;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;

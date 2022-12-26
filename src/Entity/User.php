@@ -80,7 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->messages = new ArrayCollection();
-        //$this->Messages = new ArrayCollection();
+        
         $this->tricks = new ArrayCollection();
     }
 

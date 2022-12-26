@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-// use Assert\TrickName;
+
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TrickRepository;
@@ -142,24 +142,15 @@ class Trick
         return $this->slug;
     }
 
-    // public function setSlug(string $slug): self
-    // {
-    //     $this->slug = $slug;
-
-    //     return $this;
-    // }
+    
+    
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    // public function setCreatedAt(DateTimeInterface $createdAt): self
-    // {
-    //     $this->createdAt = $createdAt;
-
-    //     return $this;
-    // }
+    
 
     
 

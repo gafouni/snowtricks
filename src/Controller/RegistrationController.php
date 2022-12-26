@@ -66,7 +66,7 @@ class RegistrationController extends AbstractController
             
             
             
-            //$flashMessage = $this->addFlash('succes', "Vous venez de recevoir un mail de confirmation");
+            
                 
 
             return $userAuthenticator->authenticateUser(
