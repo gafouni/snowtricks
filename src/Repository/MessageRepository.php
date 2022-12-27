@@ -39,7 +39,7 @@ class MessageRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
-    }
+    }  
 
 
     public function findPaginatedMessages(Trick $trick, int $page = 1, int $limit = 3): array
