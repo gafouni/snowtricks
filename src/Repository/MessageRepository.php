@@ -42,7 +42,7 @@ class MessageRepository extends ServiceEntityRepository
     }
 
 
-    public function findPaginatedMessages(Trick $trick, $page = 1, $limit = 3): array
+    public function findPaginatedMessages(Trick $trick, int $page = 1, int $limit = 3): array
     {
         $result = [];
         

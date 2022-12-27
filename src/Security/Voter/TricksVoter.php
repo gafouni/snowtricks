@@ -2,6 +2,7 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\User;
 use App\Entity\Trick;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,12 +57,12 @@ class TricksVoter extends Voter
         return false;
     }
 
-    private function canEdit(Trick $trick, $user){
+    private function canEdit(Trick $trick, User $user){
         //L'auteur de la figure peut la modifier
         return $user === $trick->getUser();
     }
 
-    private function canDelete(Trick $trick, $user){
+    private function canDelete(Trick $trick, User $user){
         //L'auteur de la figure peut la supprimer
         
         return $user === $trick->getUser();
