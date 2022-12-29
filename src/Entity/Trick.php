@@ -70,7 +70,7 @@ class Trick
     private $trickGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="tricks", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
      */
     private $message;
 
