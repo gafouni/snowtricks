@@ -70,7 +70,7 @@ class Trick
     private $trickGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="tricks", orphanRemoval=true)
      */
     private $message;
 
@@ -80,7 +80,7 @@ class Trick
     private $user;
 
     public function __construct()
-    {
+    { 
         $this->message = new ArrayCollection();
     }
 

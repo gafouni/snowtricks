@@ -32,10 +32,10 @@ class TrickGroup
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $slug;
+    private $slug; 
 
     /**
-     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="trickGroup", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="trickGroup")
      */
     private $tricks;
 
