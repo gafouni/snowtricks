@@ -25,7 +25,7 @@ class Message
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAd;
+    private $createdAd; 
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="message")

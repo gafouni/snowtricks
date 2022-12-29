@@ -66,7 +66,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $tricks;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean") 
      */
     private $isVerified = false;
 
