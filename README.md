@@ -1,5 +1,6 @@
 ## Description
 * Snowtricks est un site communautaire de partage de figures de snowboard,  ce projet m'a permis d'apprendre le framework Symfony.  Les diagrammes UML se trouvent dans le dossier "Diagrams".  Versions: PHP 7.4.12  Symfony 5.4
+* L'analyse SymfonyInsight est disponible avec le lien suivant: https://insight.symfony.com/projects/d47c2a56-e3d7-4c81-ad93-7b2b5aaeac2b/analyses/43
 ---------------------------------
 ## Installation
 * Cloner le depot:  git clone https://github.com/gafouni/snowtricks.git
