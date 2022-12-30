@@ -11723,7 +11723,7 @@ section#contact {
   background-color: #212529;
   background-image: url("../assets/img/trick-detail-bg2.jpg");
   background-repeat: no-repeat;
-  background-position: center;
+  background-size: cover;
 }
 section#contact .section-heading {
   color: #fff;

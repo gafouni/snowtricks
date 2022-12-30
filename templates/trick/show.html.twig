@@ -89,7 +89,9 @@
             <div class="container px-5 my-5 px-5">
                 <div class="text-center mb-5"><br><br>
                     {% if app.user %}
-                        <p class="lead mb-0 ">Ajouter un commentaire</p><br>
+                        
+                        <h5>Ajouter un message</h5><br>
+
                         {{ include('trick/messageForm.html.twig') }}
                     {% else %}    
                         <h5 style="color:#ffffff;">Connectez-vous pour ajouter un commentaire</h5><br>
@@ -104,7 +106,7 @@
             <div class="container px-5 my-5 px-5">
                 <div class="text-center mb-5">
                     {# <h2 class="fw-bolder" style="color:white">Customer testimonials</h2> #}
-                    <p class="lead mb-0 ">Liste des commentaires</p>
+                    <h5>Liste des messages</h5>
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-6">
