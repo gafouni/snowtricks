@@ -39,10 +39,10 @@ class Trick
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $imgFile;
+    // /**
+    //  * @ORM\Column(type="string", length=255)
+    //  */
+    // private $imgFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -79,9 +79,15 @@ class Trick
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="trick", cascade={"persist"})
+     */
+    protected $images;
+
     public function __construct()
     { 
         $this->message = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,17 +119,17 @@ class Trick
         return $this;
     }
 
-    public function getImgFile(): ?string
-    {
-        return $this->imgFile;
-    }
+    // public function getImgFile(): ?string
+    // {
+    //     return $this->imgFile;
+    // }
 
-    public function setImgFile(string $imgFile): self
-    {
-        $this->imgFile = $imgFile;
+    // public function setImgFile(string $imgFile): self
+    // {
+    //     $this->imgFile = $imgFile;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getVideoFile(): ?string
     {
@@ -204,6 +210,36 @@ class Trick
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
+            }
+        }
 
         return $this;
     }

@@ -33,7 +33,9 @@
 
                         {# Card #} 
                         <div class="team-member">
-                            <img class="mx-auto" src="{{ trick.imgFile }}" alt="figure de snowboard" />                           
+                            {% for image in trick.images %}
+                                <img class="mx-auto" src="{{ asset("uploads/") ~ trick.images }}" alt="figure de snowboard" />  
+                            {% endfor %}
                             <a href="{{ path('trick', {slug:trick.slug})}}">{{ trick.trickName }}</a>
 
                             {%  if app.user %}

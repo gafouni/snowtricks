@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 
+use App\Entity\Image;
 use App\Entity\Trick;
 use DateTimeInterface;
 use App\Entity\Message;
@@ -81,7 +82,23 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //recuperation des images transmises
+            $imageFile = $form->get('images')->getData();
 
+            foreach($imageFile as $img){
+                //generer un nouveau nom de fichier
+                $newFileName = md5(uniqid()).'.'. $img->guessExtension();
+                //copier le fichier dans dossier uploads
+                $img->move(
+                    $this->getParameter('images_directory'),
+                    $newFileName
+                );
+                //stocker le nom de l'image dans la base de donnees 
+                $image = new Image();
+                $image->setName($newFileName);
+                //ajouter l'image dans la table trick
+                $trick->addImage($image);
+            }
             
             $trick->getCreatedAt(new \DateTime('now'));  
             $trick->setUser($this->getUser());   
@@ -112,7 +129,23 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             
+            //recuperation des images transmises
+            $imageFile = $form->get('images')->getData();
+
+            foreach($imageFile as $img){
+                //generer un nouveau nom de fichier
+                $newFileName = md5(uniqid()).'.'. $img->guessExtension();
+                //copier le fichier dans dossier uploads
+                $img->move(
+                    $this->getParameter('images_directory'),
+                    $newFileName
+                );
+                //stocker le nom de l'image dans la base de donnees 
+                $image = new Image();
+                $image->setName($newFileName);
+                //ajouter l'image dans la table trick
+                $trick->addImage($image);
+            }
 
             $this->getDoctrine()->getManager()->flush();
             
@@ -153,5 +186,22 @@ class TrickController extends AbstractController
         
     }
 
+    /**
+     * @Route("/delete/image/{id}", name="annonces_delete_image", methods={"DELETE"})
+     */
+    public function removeImage(Images $image, Request $request){
+        
+        //On recupere le nom de l'image
+        $nom = $image->getName();
+        //On supprime le fichier
+        unlink($this->getParameter('images_directory').'/'.$nom);
+
+        //On supprime l'image de la base de donnees
+        
+        $trick->removeImage($nom);
+        //}
+        $this->getDoctrine()->getManager()->flush();
+
+    }
 
 }
