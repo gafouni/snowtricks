@@ -39,10 +39,6 @@ class Trick
      */
     private $description;
 
-    // /**
-    //  * @ORM\Column(type="string", length=255)
-    //  */
-    // private $imgFile;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -80,9 +76,14 @@ class Trick
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="trick", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="trick", cascade={"persist"}, orphanRemoval=true)
      */
-    protected $images;
+    private $images;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $imageFilename;
 
     public function __construct()
     { 
@@ -119,18 +120,7 @@ class Trick
         return $this;
     }
 
-    // public function getImgFile(): ?string
-    // {
-    //     return $this->imgFile;
-    // }
-
-    // public function setImgFile(string $imgFile): self
-    // {
-    //     $this->imgFile = $imgFile;
-
-    //     return $this;
-    // }
-
+    
     public function getVideoFile(): ?string
     {
         return $this->videoFile;
@@ -243,4 +233,17 @@ class Trick
 
         return $this;
     }
+
+    public function getImageFilename()
+    {
+        return $this->imageFilename;
+    }
+
+    public function setImageFilename($imageFilename)
+    {
+        $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+
 }

@@ -18,8 +18,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class TrickController extends AbstractController
 {
@@ -75,7 +79,7 @@ class TrickController extends AbstractController
         /**
      * @Route("/new", name="new_trick", methods={"GET", "POST"})
      */
-    public function new(Request $request, TrickRepository $trickRepository): Response
+    public function new(Request $request, TrickRepository $trickRepository, SluggerInterface $slugger): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -83,13 +87,15 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //recuperation des images transmises
-            $imageFile = $form->get('images')->getData();
+            ///** @var UploadedFile $imageFiles */
+            $imageFiles = $form->get('images')->getData();
 
-            foreach($imageFile as $img){
+            foreach($imageFiles as $imageFile){
+
                 //generer un nouveau nom de fichier
-                $newFileName = md5(uniqid()).'.'. $img->guessExtension();
+                $newFileName = md5(uniqid()).'.'. $imageFile->guessExtension();
                 //copier le fichier dans dossier uploads
-                $img->move(
+                $imageFile->move(
                     $this->getParameter('images_directory'),
                     $newFileName
                 );
@@ -97,11 +103,13 @@ class TrickController extends AbstractController
                 $image = new Image();
                 $image->setName($newFileName);
                 //ajouter l'image dans la table trick
+                $trick->setImageFilename($newFileName);
                 $trick->addImage($image);
             }
             
             $trick->getCreatedAt(new \DateTime('now'));  
-            $trick->setUser($this->getUser());   
+            $trick->setUser($this->getUser()); 
+            
 
             $trickRepository->add($trick, true);
 
@@ -129,14 +137,16 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             //recuperation des images transmises
-            $imageFile = $form->get('images')->getData();
+            $imageFiles = $form->get('images')->getData();
 
-            foreach($imageFile as $img){
+            foreach($imageFiles as $imageFile){
+
                 //generer un nouveau nom de fichier
-                $newFileName = md5(uniqid()).'.'. $img->guessExtension();
+                $newFileName = md5(uniqid()).'.'. $imageFile->guessExtension();
                 //copier le fichier dans dossier uploads
-                $img->move(
+                $imageFile->move(
                     $this->getParameter('images_directory'),
                     $newFileName
                 );
@@ -144,14 +154,17 @@ class TrickController extends AbstractController
                 $image = new Image();
                 $image->setName($newFileName);
                 //ajouter l'image dans la table trick
+                $trick->setImageFilename($newFileName);
                 $trick->addImage($image);
             }
+
+        
 
             $this->getDoctrine()->getManager()->flush();
             
 
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
-        }
+        }    
 
         $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
 
@@ -187,19 +200,20 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete/image/{id}", name="annonces_delete_image", methods={"DELETE"})
+     * @Route("/remove/image/{id}", name="trick_remove_image", methods={"DELETE"})
      */
-    public function removeImage(Images $image, Request $request){
+    public function removeImage(Image $image, Request $request){
         
+
         //On recupere le nom de l'image
-        $nom = $image->getName();
+        $name = $image->getName();
         //On supprime le fichier
-        unlink($this->getParameter('images_directory').'/'.$nom);
+        unlink($this->getParameter('images_directory').'/'.$name);
 
         //On supprime l'image de la base de donnees
+        $trick = new Trick();
+        $trick->removeImage($name);
         
-        $trick->removeImage($nom);
-        //}
         $this->getDoctrine()->getManager()->flush();
 
     }

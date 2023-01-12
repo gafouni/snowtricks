@@ -3,12 +3,12 @@
     {{ form_row(form.trickName, {'label': 'Nom', 'attr': {'placeholder': 'Nom de la figure...'}}) }}
     {{ form_row(form.description, {'label': 'Description', 'attr': {'placeholder': 'Description de la figure...'}}) }}
     
-    {{ form_row(form.images, {'label': 'Image', 'attr': {'placeholder': 'Url de l\'image...'}}) }}
-    
+    {{ form_row(form.images, {'label': 'Image', 'attr': {'placeholder': 'Choisissez les images...'}}) }}
+
     {{ form_row(form.videoFile, {'label': 'Video', 'attr': {'placeholder': 'Url de la video...'}}) }}
     {{ form_row(form.trickGroup, {'label': 'Categorie', 'attr': {'placeholder': 'Categorie...'}}) }}
-    {# {{ form_row(form.user, {'label': 'Categorie', 'attr': {'placeholder': 'Categorie...'}}) }} #}
     
+
     {# {{ form_widget(form) }} #}
     <button class="btn btn-lg btn-secondary" style="margin:2rem;">{{ button_label|default('Ajouter') }}</button>
 {{ form_end(form) }}

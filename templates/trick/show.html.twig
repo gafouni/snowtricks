@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="card mb-3" style=" height:400px;">
-                        <img class="card-img-top" style="height:100%;" src="{{ trick.imgFile }}" alt="Card image cap">                       
+                        <img class="card-img-top" style="height:100%;" src="{{ asset("uploads/") ~ trick.imageFilename }}" alt="Card image cap">                       
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -28,18 +28,20 @@
 
             {# Petites images et video #}
             <div class="card-deck">
-                <div class="card">
-                    <img class="card-img-top" src="{{ trick.imgFile }}" alt="Card image cap">
-                    {# <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                    </div> #}
-                </div>
-                <div class="card">
+                
+                {% for image in trick.images %}
+                    <div class="card">
+
+                        <img class="card-img-top" src="{{ asset("uploads/") ~  image.name }}" alt="Card image cap">
+                    </div>
+                {% endfor %}
+                                    
+                {# <div class="card">
                     <img class="card-img-top" src="../assets/img/header/snow-gd6ad1dcb3_1920.jpg" alt="Card image cap">
                     {# <div class="card-body">
                         <h5 class="card-title">Card title</h5>                        
                     </div> #}
-                </div>
+                {# </div>  #}
                 <div class="card">
                     <iframe width="349" height="259" src="{{ trick.videoFile }}" 
                     title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;

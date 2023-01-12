@@ -33,6 +33,7 @@ class Image
      */
     private $trick;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -73,4 +74,6 @@ class Image
 
         return $this;
     }
+
+    
 }
