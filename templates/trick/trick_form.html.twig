@@ -4,6 +4,21 @@
     {{ form_row(form.description, {'label': 'Description', 'attr': {'placeholder': 'Description de la figure...'}}) }}
     
     {{ form_row(form.images, {'label': 'Image', 'attr': {'placeholder': 'Choisissez les images...'}}) }}
+    
+    {# Sur la route "edit_trick", on affiche les images uploadees #}
+    {% if app.request.attributes.get('_route') == 'edit_trick' %}
+        <div style="display:flex; justify-content: space-around;" >
+            {% for image in trick.images %}
+            {# <div style="display:flex">     #}
+                <div>
+                    <img src="{{ asset('uploads/' ~ image.name) }}"  alt="image du trick" width="100">   
+                    <a href="{{ path('remove_trick_image', {id:image.id}) }}">Supprimer</a>
+                </div>  
+            {# </div>      #}
+            {% endfor %}
+        </div>
+    {% endif %}         
+
 
     {{ form_row(form.videoFile, {'label': 'Video', 'attr': {'placeholder': 'Url de la video...'}}) }}
     {{ form_row(form.trickGroup, {'label': 'Categorie', 'attr': {'placeholder': 'Categorie...'}}) }}

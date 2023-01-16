@@ -12,15 +12,14 @@ use App\Entity\Message;
 use App\Form\TrickType;
 use App\Form\MessageType;
 use App\Repository\UserRepository;
+use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -200,21 +199,34 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/remove/image/{id}", name="trick_remove_image", methods={"DELETE"})
+     * @Route("/remove/image/{id}", name="remove_trick_image", methods={"GET", "POST"})
      */
-    public function removeImage(Image $image, Request $request){
+    public function removeImage( Request $request, ImageRepository $imageRepository)
+    {
+        //$data = $request->getContent();
+               
+        $trick = new Trick();
+        $image = $trick->getImages();
         
-
         //On recupere le nom de l'image
+        $image = new Image();
         $name = $image->getName();
         //On supprime le fichier
-        unlink($this->getParameter('images_directory').'/'.$name);
-
-        //On supprime l'image de la base de donnees
-        $trick = new Trick();
-        $trick->removeImage($name);
+        if(file_exists($name)){
+            unlink($this->getParameter('images_directory').'/'.$name);
+        }    
+        //On supprime l'image de la base de donnees (de la table trick)
+        // $trick = new Trick();
+        // $id = $image->getId;
+        // $trick->removeImage($id);
+        $imageRepository->remove($image, true);
         
-        $this->getDoctrine()->getManager()->flush();
+        // $em = $this->getDoctrine()->getManager();
+        // $em->remove($image);
+        // $em->flush();
+        
+        return $this->redirectToRoute('remove_trick_image', [], Response::HTTP_SEE_OTHER);
+
 
     }
 

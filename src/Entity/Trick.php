@@ -57,8 +57,6 @@ class Trick
      */
     private $createdAt;
 
-    
-
     /**
      * @ORM\ManyToOne(targetEntity=TrickGroup::class, inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
@@ -85,10 +83,16 @@ class Trick
      */
     private $imageFilename;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Video::class, mappedBy="trick")
+     */
+    private $videos;
+
     public function __construct()
     { 
         $this->message = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -242,6 +246,33 @@ class Trick
     public function setImageFilename($imageFilename)
     {
         $this->imageFilename = $imageFilename;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Video>
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->addTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            $video->removeTrick($this);
+        }
 
         return $this;
     }
