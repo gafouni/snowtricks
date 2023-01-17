@@ -39,12 +39,6 @@ class Trick
      */
     private $description;
 
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $videoFile;
-
     /**
      * @Gedmo\Slug(fields={"trickName"})
      * @ORM\Column(type="string", length=255)
@@ -84,15 +78,22 @@ class Trick
     private $imageFilename;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Video::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", cascade={"persist"})
      */
     private $videos;
+
+    
+
+    // /**
+    //  * @ORM\ManyToMany(targetEntity=Video::class, mappedBy="trick")
+    //  */
+    // private $videos;
 
     public function __construct()
     { 
         $this->message = new ArrayCollection();
         $this->images = new ArrayCollection();
-        $this->videos = new ArrayCollection();
+        //$this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,35 +125,17 @@ class Trick
         return $this;
     }
 
-    
-    public function getVideoFile(): ?string
-    {
-        return $this->videoFile;
-    }
-
-    public function setVideoFile(string $videoFile): self
-    {
-        $this->videoFile = $videoFile;
-
-        return $this;
-    }
 
     public function getSlug(): ?string
     {
         return $this->slug;
     }
-
-    
-    
+   
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
-
-    
-
-    
 
     public function getTrickGroup(): ?Trickgroup
     {
@@ -250,10 +233,11 @@ class Trick
         return $this;
     }
 
+
     /**
      * @return Collection<int, Video>
      */
-    public function getVideos(): Collection
+    public function getVideos(): ?Collection
     {
         return $this->videos;
     }
@@ -262,7 +246,7 @@ class Trick
     {
         if (!$this->videos->contains($video)) {
             $this->videos[] = $video;
-            $video->addTrick($this);
+            $video->setTrick($this);
         }
 
         return $this;
@@ -271,10 +255,15 @@ class Trick
     public function removeVideo(Video $video): self
     {
         if ($this->videos->removeElement($video)) {
-            $video->removeTrick($this);
+            // set the owning side to null (unless already changed)
+            if ($video->getTrick() === $this) {
+                $video->setTrick(null);
+            }
         }
 
         return $this;
     }
+
+    
 
 }

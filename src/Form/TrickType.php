@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
 {
@@ -22,7 +23,17 @@ class TrickType extends AbstractType
                 'mapped'=> false,
                 'required'=> false,
             ])
-            ->add('videoFile')           
+            ->add('videos', CollectionType::class, [
+                'entry_type'=>VideoType::class,
+                'entry_options' => ['label' => false],
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                //'prototype'    => true,
+                'required' => false
+            ]
+                
+            )           
             ->add('trickGroup')            
         ;
     }
