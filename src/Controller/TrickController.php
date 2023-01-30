@@ -200,31 +200,26 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/remove/image/{id}", name="remove_trick_image", methods={"GET", "POST"})
+     * @Route("/remove/image/{id}", name="remove_trick_image", methods={"GET", "DELETE"})
      */
-    public function removeImage( Request $request, ImageRepository $imageRepository)
+    public function removeImage( int $id, Request $request, ImageRepository $imageRepository, 
+                                EntityManagerInterface $em)
     {
-        //$data = $request->getContent();
-               
-        $trick = new Trick();
-        $image = $trick->getImages();
+
+        $image = new image();
+        $image = $imageRepository->find($id);
+        // $image = $trick->getImages->getId();
         
         //On recupere le nom de l'image
-        $image = new Image();
         $name = $image->getName();
         //On supprime le fichier
         if(file_exists($name)){
             unlink($this->getParameter('images_directory').'/'.$name);
         }    
-        //On supprime l'image de la base de donnees (de la table trick)
-        // $trick = new Trick();
-        // $id = $image->getId;
-        // $trick->removeImage($id);
-        $imageRepository->remove($image, true);
-        
-        // $em = $this->getDoctrine()->getManager();
-        // $em->remove($image);
-        // $em->flush();
+
+        //On supprime l'image de la base de donnees (de la table trick)       
+        $em->remove($image);
+        $em->flush();
         
         return $this->redirectToRoute('remove_trick_image', [], Response::HTTP_SEE_OTHER);
 

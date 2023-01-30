@@ -11,7 +11,7 @@
             {% for image in trick.images %}
                 <div>
                     <img src="{{ asset('uploads/' ~ image.name) }}"  alt="image du trick" width="100">   
-                    <a href="{{ path('remove_trick_image', {id:image.id}) }}">Supprimer</a>
+                    <a href="{{ path('remove_trick_image', {id: image.id}) }}">Supprimer</a>
                 </div>  
             
             {% endfor %}

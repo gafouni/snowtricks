@@ -6,7 +6,7 @@
 * Cloner le depot:  git clone https://github.com/gafouni/snowtricks.git
 
 * Telecharger les dependances:  
-  composer install
+  composer install 
   
 * Parametrer la base de donnees:  
   editer le fichier intitule ".env", modifier les valeurs de parametrage de la base de donnees 
