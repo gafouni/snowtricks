@@ -30,7 +30,7 @@ class TrickType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 //'prototype'    => true,
-                'required' => false
+                //'required' => false
             ]
                 
             )           

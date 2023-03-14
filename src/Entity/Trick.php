@@ -93,7 +93,7 @@ class Trick
     { 
         $this->message = new ArrayCollection();
         $this->images = new ArrayCollection();
-        //$this->videos = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int

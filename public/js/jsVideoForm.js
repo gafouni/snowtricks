@@ -1,70 +1,52 @@
-/*!
-* Start Bootstrap - Agency v7.0.11 (https://startbootstrap.com/theme/agency)
-* Copyright 2013-2022 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
-*/
-//
-// Scripts
-// 
+    document.addEventListener("DOMContentLoaded", function() {
+    // document.addEventListener('DOMContentLoaded', (event) => {
 
-// add-collection-widget.js
-jQuery(document).ready(function () {
-    jQuery('.add-another-collection-widget').click(function (e) {
-        var list = jQuery(jQuery(this).attr('data-list-selector'));
-        // Try to find the counter of the list or use the length of the list
-        var counter = list.data('widget-counter') || list.children().length;
+    // let collection, boutonAjout, span;
+    // window.onload = () => {
+    collection = document.querySelector("#videos");
+    // console.log(collection)
+    span = collection.querySelector("span");
 
-        // grab the prototype template
-        var newWidget = list.attr('data-prototype');
-        // replace the "__name__" used in the id and name of the prototype
-        // with a number that's unique to your emails
-        // end name attribute looks like name="contact[emails][2]"
-        newWidget = newWidget.replace(/__name__/g, counter);
-        // Increase the counter
-        counter++;
-        // And store it, the length cannot be used if deleting widgets is allowed
-        list.data('widget-counter', counter);
+    boutonAjout = document.createElement("button");
+    boutonAjout.className = "ajout-video btn-secondary";
+    boutonAjout.innerText = "Ajouter une video";
 
-        // create a new list element and add it to the list
-        var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
-        newElem.appendTo(list);
+    let nouveauBouton = span.append(boutonAjout);
+
+    collection.dataset.index = collection.querySelectorAll("input").lenght;
+
+    boutonAjout.addEventListener("click", function(){
+        addButton(collection, nouveauBouton);
     });
-});
+    })
 
+function addButton(collection, nouveauBouton){
+    let prototype = collection.dataset.prototype;
 
-/////////////////////////////////////////////////////////////////////////////////
-// document
-//   .querySelectorAll('.add_item_link')
-//   .forEach(btn => {
-//       btn.addEventListener("click", addFormToCollection)
-//   });
+    let index = collection.dataset.index;
 
-//   const addFormToCollection = (e) => {
-//     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-  
-//     const item = document.createElement('li');
-  
-//     item.innerHTML = collectionHolder
-//       .dataset
-//       .prototype
-//       .replace(
-//         /__name__/g,
-//         collectionHolder.dataset.index
-//       );
-  
-//     collectionHolder.appendChild(item);
-  
-//     collectionHolder.dataset.index++;
-//   };
-///////////////////////////////////////////////////////////////////////////////////
-// $(".btn-add").on("click", function() {
-//     var $collectionHolder = $($(this).data("rel"));
-//     var index = $collectionHolder.data("index");
-//     var prototype = $collectionHolder.data("prototype");
-//     $collectionHolder.append(prototype.replace(/__name__/g, index));
-//     $collectionHolder.data("index", index+1);
-// });
+    prototype = prototype.replace(/__name__/g, index);
 
-// $("body").on("click", ".btn-remove", function() {
-//     $("."+$(this).data("rel")).remove();
-// });
+    let content = document.createElement("html");
+    content.innerHTML = prototype;
+    let newForm = content.querySelector("div");
+
+    let boutonSupp = document.createElement("button");
+    boutonSupp.type = "button";
+    boutonSupp.className = "btn-red";
+    boutonSupp.id = "delete-video-" + index;
+    boutonSupp.innerText = "supprimer cette video";
+
+    newForm.append(boutonSupp);
+
+    collection.dataset.index++;
+
+    let boutonAjout = collection.querySelector(".ajout-video");
+
+    span.insertBefore(newForm, boutonAjout);
+
+    boutonSupp.addEventListener("click", function(){
+        this.previousElementSibling.parentElement.remove();
+    })
+
+}

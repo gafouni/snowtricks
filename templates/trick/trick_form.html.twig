@@ -2,6 +2,7 @@
 {{ form_start(form) }}
     {{ form_row(form.trickName, {'label': 'Nom', 'attr': {'placeholder': 'Nom de la figure...'}}) }}
     {{ form_row(form.description, {'label': 'Description', 'attr': {'placeholder': 'Description de la figure...'}}) }}
+    {{ form_row(form.trickGroup, {'label': 'Categorie', 'attr': {'placeholder': 'Categorie...'}}) }}
     
     {{ form_row(form.images, {'label': 'Image', 'attr': {'placeholder': 'Choisissez les images...'}}) }}
     
@@ -19,30 +20,24 @@
     {% endif %}         
 
     {# Pour selectionner une ou plusieurs videos #}
-    <p>Videos</p>
-    
-    <ul id="video-fields-list"
-        data-prototype="{{ form_widget(form.videos.vars.prototype)|e }}"
-        data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ form.videos|length }}">   
-    {% for videoField in form.videos %} 
-        <li>{{ form_row(form.videos, {'label': 'Video', 'attr': {'placeholder': 'Url de la video...'}}) }} 
-        
-        </li>   
-    {% endfor %}
-    </ul>
-    <button type="button" class="add-another-collection-widget"
-            data-list-selector="#video-fields-list">Ajoutez une video</button><br><br>
+    {# <p>Videos</p>  #}
 
-    
-    
-    {{ form_row(form.trickGroup, {'label': 'Categorie', 'attr': {'placeholder': 'Categorie...'}}) }}
-    
-
+    <div id="videos" data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}">
+         {{ form_row(form.videos) }}
+         <span></span>
+    </div>     
+                
     {# {{ form_widget(form) }} #}
     <button class="btn btn-lg btn-secondary" style="margin:2rem;">{{ button_label|default('Ajouter') }}</button>
-{{ form_end(form) }}
+{{ form_end(form, {'render_rest': false}) }}
 
 
 
-<script src="add-collection-widget.js"></script>
+
+
+
+
+
+
+
+

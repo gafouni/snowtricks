@@ -38,19 +38,13 @@
                                     
                 {# <div class="card">
                     <img class="card-img-top" src="../assets/img/header/snow-gd6ad1dcb3_1920.jpg" alt="Card image cap">
-                    {# <div class="card-body">
-                        <h5 class="card-title">Card title</h5>                        
-                    </div> #}
                 {# </div>  #}
-                <div class="card">
-                    {# <iframe width="349" height="259" src="{{ trick.videoFile }}"  #}
-                    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
-                     encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    {# <a href="{{ asset('trick' ~ trick.videoFile) }}">Voir</a> #}
-                    {# <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                    </div> #}
-                </div>
+                {% for video in trick.videos %}
+                    <div class="card">
+                        <a href="{{ asset('trick' ~ trick.video) }}">Voir</a>
+                        {# https://youtu.be/crDzvmi91XQ #}
+                    </div>
+                {% endfor %}    
             </div>
             <br>
             <br>
@@ -96,7 +90,7 @@
 
                         {{ include('trick/messageForm.html.twig') }}
                     {% else %}    
-                        <h5 style="color:#ffffff;">Connectez-vous pour ajouter un commentaire</h5><br>
+                        <h5 style="color:#ffffff;">Connectez-vous pour ajouter un message</h5><br>
                         <a href="{{path('app_login')}}" class="btn btn-secondary">Connexion</a>
                     {% endif %}    
                 </div>

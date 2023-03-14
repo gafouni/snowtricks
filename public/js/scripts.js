@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     };
 
-    // Collapse responsive navbar when toggler is visible
+    // Collapse responsive navbar when toggler is visible 
     const navbarToggler = document.body.querySelector('.navbar-toggler');
     const responsiveNavItems = [].slice.call(
         document.querySelectorAll('#navbarResponsive .nav-link')
@@ -52,6 +52,19 @@ window.addEventListener('DOMContentLoaded', event => {
     });
 
 });
+
+
+// const videosCollectionHolder = document.querySelector('#trick_videos');
+
+// let indexVideos = videosCollectionHolder.querySelectorAll("fieldset").length;
+
+// const addVideo = () =>{
+    
+//     videosCollectionHolder.innerHTML += videosCollectionHolder.dataset.prototype.replace(/__name__/g, indexVideos);
+//     indexVideos++;
+// };
+
+// document.querySelector('#new-video').addEventListener('click', addVideo);
 
 
 
