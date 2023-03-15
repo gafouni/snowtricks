@@ -36,13 +36,11 @@
                     </div>
                 {% endfor %}
                                     
-                {# <div class="card">
-                    <img class="card-img-top" src="../assets/img/header/snow-gd6ad1dcb3_1920.jpg" alt="Card image cap">
-                {# </div>  #}
+                
                 {% for video in trick.videos %}
                     <div class="card">
-                        <a href="{{ asset('trick' ~ trick.video) }}">Voir</a>
-                        {# https://youtu.be/crDzvmi91XQ #}
+                        <a href="{{ trick.video.url }}">Voir</a>
+                        
                     </div>
                 {% endfor %}    
             </div>

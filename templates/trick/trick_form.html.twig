@@ -28,7 +28,9 @@
     </div>     
                 
     {# {{ form_widget(form) }} #}
-    <button class="btn btn-lg btn-secondary" style="margin:2rem;">{{ button_label|default('Ajouter') }}</button>
+    <button class="btn btn-lg btn-info" style="margin:2rem;">{{ button_label|default('Ajoutez votre figure') }}</button>
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
 {{ form_end(form, {'render_rest': false}) }}
 
 

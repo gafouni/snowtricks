@@ -76,7 +76,7 @@ class TrickController extends AbstractController
     }
 
 
-        /**
+    /**
      * @Route("/new", name="new_trick", methods={"GET", "POST"})
      */
     public function new(Request $request, TrickRepository $trickRepository, SluggerInterface $slugger): Response
@@ -179,7 +179,7 @@ class TrickController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="delete_trick", methods={"GET", "POST"})
+     * @Route("/trick/{id}", name="delete_trick", methods={"GET", "POST"})
      */
     public function delete(int $id, Request $request, TrickRepository $trickRepository): Response
     {
