@@ -39,7 +39,9 @@
                 
                 {% for video in trick.videos %}
                     <div class="card">
-                        <a href="{{ trick.video.url }}">Voir</a>
+                        <iframe width="" height="300" src="{{ video.url }}" 
+                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+                        encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         
                     </div>
                 {% endfor %}    
@@ -84,7 +86,7 @@
                 <div class="text-center mb-5"><br><br>
                     {% if app.user %}
                         
-                        <h5>Ajouter un message</h5><br>
+                        <h5 style="color:#ffffff;">Ajouter un message</h5><br>
 
                         {{ include('trick/messageForm.html.twig') }}
                     {% else %}    
@@ -100,13 +102,13 @@
             <div class="container px-5 my-5 px-5">
                 <div class="text-center mb-5">
                     {# <h2 class="fw-bolder" style="color:white">Customer testimonials</h2> #}
-                    <h5>Liste des messages</h5>
+                    <h5 style="color:#ffffff;" >Liste des messages</h5>
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-6">
                         <!-- Testimonial 1-->
                         {% if messages.data is empty%}
-                            <h5 style="color:#ffffff;">Aucun commentaire pour cette figure</h5>
+                            <h5 style="color:#ffffff;">Il n'y a pas encore de message pour cette figure</h5>
                         {% else %}
                             {% for message in messages.data %}
                                 <div class="card mb-4">

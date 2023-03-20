@@ -1,52 +1,72 @@
-    document.addEventListener("DOMContentLoaded", function() {
-    // document.addEventListener('DOMContentLoaded', (event) => {
 
-    // let collection, boutonAjout, span;
-    // window.onload = () => {
-    collection = document.querySelector("#videos");
-    // console.log(collection)
-    span = collection.querySelector("span");
+const newItem = (e) => {
+    const collectionHolder = document.querySelector(e.currentTarget.dataset.collection);
+    let index = parseInt(collectionHolder.dataset.index);
+    const prototype = collectionHolder.dataset.prototype;
 
-    boutonAjout = document.createElement("button");
-    boutonAjout.className = "ajout-video btn-secondary";
-    boutonAjout.innerText = "Ajouter une video";
+    collectionHolder.innerHTML += prototype.replace(/__name__/g, index);
 
-    let nouveauBouton = span.append(boutonAjout);
+    collectionHolder.dataset.index = index + 1;
+};
 
-    collection.dataset.index = collection.querySelectorAll("input").lenght;
 
-    boutonAjout.addEventListener("click", function(){
-        addButton(collection, nouveauBouton);
-    });
-    })
+document
+    .querySelectorAll('.btn-new')
+    .forEach(btn => btn.addEventListener("click", newItem));
 
-function addButton(collection, nouveauBouton){
-    let prototype = collection.dataset.prototype;
 
-    let index = collection.dataset.index;
+//     let collection, boutonAjout, span;
+    
+//     document.addEventListener("DOMContentLoaded", function() {
+//     //document.addEventListener('DOMContentLoaded', (event) => {
 
-    prototype = prototype.replace(/__name__/g, index);
+//     // let collection, boutonAjout, span;
+//     // window.onload = () => {
+//     collection = document.querySelector("#videos");
+//     // console.log(collection)
+//     span = collection.querySelector("span");
 
-    let content = document.createElement("html");
-    content.innerHTML = prototype;
-    let newForm = content.querySelector("div");
+//     boutonAjout = document.createElement("button");
+//     boutonAjout.className = "ajout-video btn-secondary";
+//     boutonAjout.innerText = "Ajouter une video";
 
-    let boutonSupp = document.createElement("button");
-    boutonSupp.type = "button";
-    boutonSupp.className = "btn-red";
-    boutonSupp.id = "delete-video-" + index;
-    boutonSupp.innerText = "supprimer cette video";
+//     let nouveauBouton = span.append(boutonAjout);
 
-    newForm.append(boutonSupp);
+//     collection.dataset.index = collection.querySelectorAll("input").lenght;
 
-    collection.dataset.index++;
+//     boutonAjout.addEventListener("click", function(){
+//         addButton(collection, nouveauBouton);
+//     });
+//     })
 
-    let boutonAjout = collection.querySelector(".ajout-video");
+// function addButton(collection, nouveauBouton){
+//     let prototype = collection.dataset.prototype;
 
-    span.insertBefore(newForm, boutonAjout);
+//     let index = collection.dataset.index;
 
-    boutonSupp.addEventListener("click", function(){
-        this.previousElementSibling.parentElement.remove();
-    })
+//     prototype = prototype.replace(/__name__/g, index);
 
-}
+//      let content = document.createElement("html");
+//     content.innerHTML = prototype;
+//     let newForm = content.querySelector("div");
+
+//     let boutonSupp = document.createElement("button");
+//     boutonSupp.type = "button";
+//     boutonSupp.className = "btn-secondary";
+//     boutonSupp.id = "delete-video-" + index;
+//     boutonSupp.innerText = "supprimer";
+
+//     newForm.append(boutonSupp);
+
+//     collection.dataset.index++;
+    
+
+//     let boutonAjout = collection.querySelector(".ajout-video");
+
+//     span.insertBefore(newForm, boutonAjout);
+
+//     boutonSupp.addEventListener("click", function(){
+//         this.previousElementSibling.parentElement.remove();
+//     })
+
+// }
