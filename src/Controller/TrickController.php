@@ -129,8 +129,7 @@ class TrickController extends AbstractController
      * @Route("/{id}/edit", name="edit_trick", methods={"GET", "POST"})
      */
     public function edit(int $id, Request $request, Trick $trick, TrickRepository $trickRepository): Response
-    {
-        
+    {        
         $this->denyAccessUnlessGranted('trick_edit', $trick);    
       
         $form = $this->createForm(TrickType::class, $trick);
@@ -158,18 +157,12 @@ class TrickController extends AbstractController
                 $trick->addImage($image);
             }
 
-        
-
             $this->getDoctrine()->getManager()->flush();
             
-
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }    
 
         $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
-
-        
-
 
         return $this->renderForm('trick/edit.html.twig', [
             'trick' => $trick,
@@ -185,17 +178,12 @@ class TrickController extends AbstractController
     {
         $trick = $trickRepository->find($id);
         
-
         $this->denyAccessUnlessGranted('trick_delete', $trick, 'Vous ne pouvez pas supprimer cette figure');
 
-        // if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $trickRepository->remove($trick, true);
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
 
             $flashMessage = $this->addFlash('success', 'Votre figure a ete supprimee !');
-
-        //}
-
         
     }
 

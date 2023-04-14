@@ -1,5 +1,15 @@
-<div>
+<div class="col-4">
+    {{ form_row(form.url) }}
+    <div class="form-group">
+        <button class="btn btn-danger btn-remove">Supprimer</button>  
+    </div>
+</div>        
+
+
+
+
+{# <div>
     {{ form_row(form.url, {'label': 'Lien', 'attr': {'required' : 'false',
                                                          'placeholder' : 'Selectionnez une vidéo'}}) }}
     <button type="button" class="btn btn-remove fa fa-trash fa-lg">Supprimer</button>
-</div>
+</div> #}

@@ -38,7 +38,8 @@
                                 {# {% for image in trick.images %}  #}
                                     <img class="mx-auto" src="{{ asset("uploads/") ~ trick.imageFilename }}" alt="figure de snowboard" />  
                                 {# {% endfor %}  #}
-                            {% endif %}    
+                            {% endif %}   
+                            <div> 
                             <a href="{{ path('trick', {slug:trick.slug})}}">{{ trick.trickName }}</a>
 
                             {%  if app.user %}
@@ -55,6 +56,7 @@
                                     </svg>
                                 </a>
                             {% endif %}
+                            </div>
                             
                             {# <p class="text-muted">{{  trick.description }}</p>
                             <h6>Ajoute le{{ trick.createdAt|date('d/m/y') }}</h6> #}
@@ -72,10 +74,10 @@
                 {% if full == false %}
                     
                     <div class="d-flex justify-content-end mb-4">
-                    <a class="btn btn-secondary text-uppercase" href="{{ path('home', {full:1}) }}">Voir plus →</a></div>
+                    <a class="btn btn-info text-uppercase" href="{{ path('home', {full:1}) }}">Voir plus →</a></div>
                 {% else %}
                     <div class="d-flex justify-content-end mb-4">
-                    <a class="btn btn-secondary text-uppercase" href="{{ path('home') }}">Voir moins →</a></div>
+                    <a class="btn btn-info text-uppercase" href="{{ path('home') }}">Voir moins →</a></div>
                 {% endif %}
             </div> 
             

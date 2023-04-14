@@ -26,13 +26,13 @@
                 </div>
             </div>
 
-            {# Petites images et video #}
-            <div class="card-deck">
+            {# Petites images et video #}            
+            <div class="card-deck"> 
                 
                 {% for image in trick.images %}
                     <div class="card">
 
-                        <img class="card-img-top" src="{{ asset("uploads/") ~  image.name }}" alt="Card image cap">
+                        <img class="card-img-top" style="height:300px" src="{{ asset("uploads/") ~  image.name }}" alt="Card image cap">
                     </div>
                 {% endfor %}
                                     
