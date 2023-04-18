@@ -7,6 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Trick;
+use App\Entity\Video;
 use DateTimeInterface;
 use App\Entity\Message;
 use App\Form\TrickType;
@@ -14,12 +15,14 @@ use App\Form\MessageType;
 use App\Repository\UserRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
+use App\Repository\VideoRepository;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -130,13 +133,21 @@ class TrickController extends AbstractController
      */
     public function edit(int $id, Request $request, Trick $trick, TrickRepository $trickRepository): Response
     {        
-        $this->denyAccessUnlessGranted('trick_edit', $trick);    
+
+        $this->denyAccessUnlessGranted('trick_edit', $trick); 
+        
+        // $originalVideos = new ArrayCollection();
+
+        // // Creer une collection d'objets video dans la base de donnees
+        // foreach ($trick->getVideos() as $video) {
+        //     $originalVideos->add($video);
+        // }
       
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             //recuperation des images transmises
             $imageFiles = $form->get('images')->getData();
 
@@ -159,7 +170,7 @@ class TrickController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
             
-            return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('trick', ['slug'=> $trick->getSlug()], Response::HTTP_SEE_OTHER);
         }    
 
         $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
@@ -190,28 +201,43 @@ class TrickController extends AbstractController
     /**
      * @Route("/remove/image/{id}", name="remove_trick_image", methods={"GET", "DELETE"})
      */
-    public function removeImage( int $id, Request $request, ImageRepository $imageRepository, 
+    public function removeImage(int $id, Request $request, ImageRepository $imageRepository, 
                                 EntityManagerInterface $em)
     {
-
-        $image = new image();
-        $image = $imageRepository->find($id);
-        // $image = $trick->getImages->getId();
         
-        //On recupere le nom de l'image
-        $name = $image->getName();
-        //On supprime le fichier
-        if(file_exists($name)){
+            $image = $imageRepository->find($id);
+
+            //On recupere le nom de l'image
+            $name = $image->getName();
+            //On supprime le fichier
             unlink($this->getParameter('images_directory').'/'.$name);
-        }    
+           
 
-        //On supprime l'image de la base de donnees (de la table trick)       
-        $em->remove($image);
-        $em->flush();
-        
-        return $this->redirectToRoute('remove_trick_image', [], Response::HTTP_SEE_OTHER);
+            //On supprime l'image de la base de donnees (de la table trick)       
+            $imageRepository->remove($image, true);
+
+            return $this->redirectToRoute('edit_trick', ['id'=> $image->getTrick()->getId()], Response::HTTP_SEE_OTHER);
+
+    }
+
+
+    /**
+     * @Route("/remove/video/{id}", name="remove_trick_video", methods={"GET", "DELETE"})
+     */
+    public function removeVideo( int $id, Request $request, VideoRepository $videoRepository, 
+                                EntityManagerInterface $em)
+    {
+        // $trick = new Trick();
+        $video = $videoRepository->find($id);
+
+        //On supprime la video de la base de donnees (de la table trick)       
+        $videoRepository->remove($video, true);
+
+        return $this->redirectToRoute('edit_trick', ['id'=> $video->getTrick()->getId()], Response::HTTP_SEE_OTHER);
 
 
     }
+
+
 
 }

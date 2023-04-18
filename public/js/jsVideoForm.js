@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     const addTagFormDeleteLink = (item) => {
         const removeFormButton = document.createElement('button');
-        removeFormButton.innerText = 'Delete this tag';
+        removeFormButton.innerText = 'Supprimer';
     
         item.append(removeFormButton);
     
