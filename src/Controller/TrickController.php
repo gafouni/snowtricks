@@ -135,13 +135,6 @@ class TrickController extends AbstractController
     {        
 
         $this->denyAccessUnlessGranted('trick_edit', $trick); 
-        
-        // $originalVideos = new ArrayCollection();
-
-        // // Creer une collection d'objets video dans la base de donnees
-        // foreach ($trick->getVideos() as $video) {
-        //     $originalVideos->add($video);
-        // }
       
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -227,7 +220,6 @@ class TrickController extends AbstractController
     public function removeVideo( int $id, Request $request, VideoRepository $videoRepository, 
                                 EntityManagerInterface $em)
     {
-        // $trick = new Trick();
         $video = $videoRepository->find($id);
 
         //On supprime la video de la base de donnees (de la table trick)       
