@@ -33,29 +33,43 @@ document.addEventListener('DOMContentLoaded', (event) => {
         collectionHolder.dataset.index++;
 
         // add a delete link to the new form
-        addTagFormDeleteLink(item);
+        // addTagFormDeleteLink(item);
+
+        collectionHolder
+            .querySelectorAll('.del')
+            .forEach(btn => btn.addEventListener("click", removeItem));
+
 
     };
 
 
-    const addTagFormDeleteLink = (item) => {
-        const removeFormButton = document.createElement('button');
-        removeFormButton.innerText = 'Supprimer';
+    // const addTagFormDeleteLink = (item) => {
+    //     const removeFormButton = document.createElement('button');
+    //     removeFormButton.innerText = 'Supprimer';
     
-        item.append(removeFormButton);
+    //     item.append(removeFormButton);
     
-        removeFormButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            // remove the li for the tag form
-            item.remove();
-        });
-    }    
+    //     removeFormButton.addEventListener('click', (e) => {
+    //         e.preventDefault();
+    //         // remove the li for the tag form
+    //         item.remove();
+    //     });
+    // }    
+
+    const removeItem = (e) => {
+        e.currentTarget.closest(".del").remove();
+    };
+
+    // document
+    // .querySelectorAll('ul.tags li')
+    // .forEach((tag) => {
+    //     addTagFormDeleteLink(tag)
+    // })
 
     document
-    .querySelectorAll('ul.tags li')
-    .forEach((tag) => {
-        addTagFormDeleteLink(tag)
-    })
+    .querySelectorAll('.btn-remove')
+    .forEach(btn => btn.addEventListener("click", removeItem)
+    );
 
     document
     .querySelectorAll('.add_item_link')

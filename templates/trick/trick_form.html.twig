@@ -7,45 +7,21 @@
     
     {{ form_row(form.images, {'label': 'Image', 'attr': {'placeholder': 'Choisissez les images...'}}) }}
     
-    {# Sur la route "edit_trick", on affiche les images uploadees #}
-    {% if app.request.attributes.get('_route') == 'edit_trick' %}
-        <div style="display:flex; justify-content: space-around;" >
-            {% for image in trick.images %}
-                <div>
-                    <img src="{{ asset('uploads/' ~ image.name) }}"  alt="image du trick" width="100">   
-                    <a href="{{ path('remove_trick_image', {id: image.id}) }}">Supprimer</a>
-                </div>  
-            
-            {% endfor %}
-        </div>
-    {% endif %}         
 
-    {# Pour selectionner une ou plusieurs videos #}
+    {# Pour selectionner une ou plusieurs videos #}    
+    <div style="border:1px solid white">     
     
-        {# {% for video in form.videos %}
-            <div> #}
-                {# {{ include("form/form_video.html.twig", {form: video}) }} #}
-    <div style="border:1px solid white">            
     <ul class="videos" 
         data-index="{{ form.videos|length > 0 ? form.videos|last.vars.name + 1 : 0 }}"
         data-prototype="{{ form_row(form.videos.vars.prototype)|e('html_attr') }}"
-    >
-        {# {% for video in form.videos %}             #}
-            <li>    
-                {{ form_row(form.videos) }}
-            </li>    
-        {# {% endfor %} #}
+    >                
+            {{ form_row(form.videos) }}
     </ul>        
-            {# </div>    
-        {% endfor %}     #}
-        {# <span></span> #}
-        {# <button type="button" class="btn btn-secondary btn-new" id="new-bar">Ajouter une video</button> #}
-        <button type="button" class="add_item_link" data-collection-holder-class="videos">Add a tag</button>
+         
+        <button type="button" class="add_item_link" data-collection-holder-class="videos">Ajouter une video</button>
         {# <button type="button" class="add_item_link" data-collection-holder-class="tags">Add a tag</button> #}
     </div><br>
-    {# </div>      #}
-    
-                
+                    
     <button type="submit" class="btn btn-lg btn-info" style="margin:2rem;">{{ button_label|default('Ajoutez votre figure') }}</button>
 
 {# {{ form_end(form, {'render_rest': false}) }} #}

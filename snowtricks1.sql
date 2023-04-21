@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 15 mars 2023 à 14:00
+-- Généré le : ven. 21 avr. 2023 à 13:40
 -- Version du serveur :  10.4.16-MariaDB
 -- Version de PHP : 7.4.12
 
@@ -104,16 +104,19 @@ INSERT INTO `image` (`id`, `trick_id`, `name`, `description`) VALUES
 (34, 113, '893a199a1bdf7ead0118633dcc074aff.jpg', NULL),
 (35, 112, 'e77c68147546d64687a491848c108609.jpg', NULL),
 (36, 111, 'beda969f8ff8f58afc7711ce64b173eb.jpg', NULL),
-(37, 110, 'f4cad7c364bd1b33efe87fa0c6a7faa5.jpg', NULL),
-(38, 110, '2635e16a5b8eab289fcf2293449519ed.jpg', NULL),
 (39, 109, '13015d8849af87f0625114c893dba3ac.jpg', NULL),
 (40, 109, 'f18cd823ed9d8d4a700ca89951efd0ae.jpg', NULL),
 (41, 108, 'da7c31d60b3f8d363ace8ec12c5b6015.jpg', NULL),
 (42, 107, 'd2ab3d4f4e581c0fb0e2cd241092ec36.jpg', NULL),
-(43, 106, '60c4dadeb34b578d7eb7208c916efeab.jpg', NULL),
 (44, 105, 'f9a219e31bb16c0f53edd3d795ff75fc.jpg', NULL),
-(45, 103, '7e01b93c4e8d464ada42f88348cba54c.jpg', NULL),
-(46, 102, '08ac95d3196f36e99630b5f81c476668.jpg', NULL);
+(51, 105, '724cc8244a23b227ea020bb1461b0998.jpg', NULL),
+(53, 108, 'b134a01a96d68e5ec9dbfc5aebed74e2.jpg', NULL),
+(54, 111, '6b8993efb51f3febc804fba792563f27.jpg', NULL),
+(55, 112, 'e040cf49e9bcc91ddde459d211708257.jpg', NULL),
+(56, 113, '8ff90329b4ade1a732cb71897d8d3d38.jpg', NULL),
+(57, 107, '62d5e8810f8440b8e5efc5054c2d45ba.jpg', NULL),
+(62, 139, 'beffe445cb745072f14ed2a494aac8dd.jpg', NULL),
+(67, 139, '8109a0f8008e9b6fad9124758cb6e9c6.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -134,19 +137,13 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`id`, `content`, `created_ad`, `trick_id`, `user_id`) VALUES
-(612, 'Merci, je suis prête a me lancer', '2022-10-27 15:29:52', 102, 33),
-(613, 'Grace a vous, je me suis mis au snowboard', '2022-10-27 17:36:23', 102, 34),
-(614, 'Merci pour cet article', '2022-11-04 22:56:26', 102, 35),
-(616, 'Vous êtes top, continuez ainsi !', '2022-11-05 19:08:58', 102, 34),
 (617, 'Vive le snowboard !', '2022-11-05 19:11:46', 105, 34),
 (618, 'Celle ci a l\'air un peu difficile', '2022-11-05 19:14:00', 116, 34),
 (619, 'Super intéressant, merci', '2022-11-05 19:16:14', 116, 34),
-(620, 'Cette figure a l\'air assez difficile', '2022-11-05 19:22:07', 102, 33),
 (621, 'Bravo, je vous tire mon chapeau', '2022-11-05 19:23:25', 105, 33),
 (622, 'C\'est très intéressant, merci', '2022-11-05 19:25:09', 105, 33),
 (623, 'Merci pour vos précieux conseils', '2022-11-05 19:26:57', 116, 33),
 (624, 'Quel type de planche faut-il pour cette figure ?', '2022-11-05 19:28:35', 116, 33),
-(625, 'Vive le snowboard !', '2022-11-05 19:32:47', 102, 38),
 (626, 'Vous êtes top, surtout ne changez rien', '2022-11-05 19:34:34', 116, 38),
 (627, 'Merci, c\'est ma figure préférée !', '2022-11-05 19:43:22', 105, 36),
 (628, 'Merci pour vos conseils très utiles', '2022-11-05 19:45:44', 105, 36),
@@ -156,7 +153,8 @@ INSERT INTO `message` (`id`, `content`, `created_ad`, `trick_id`, `user_id`) VAL
 (632, 'Super intéressant, merci encore', '2022-11-05 19:53:11', 116, 37),
 (633, 'J\'attends la prochaine figure avec impatience !', '2022-12-30 13:28:48', 116, 37),
 (634, 'Très belle figure, merci', '2022-12-30 14:58:08', 123, 36),
-(635, 'Bien joue pour cette figure!', '2023-01-07 20:10:18', 124, 36);
+(635, 'Bien joue pour cette figure!', '2023-01-07 20:10:18', 124, 36),
+(636, 'C\'est super, je valide !', '2023-04-21 12:09:13', 124, 36);
 
 -- --------------------------------------------------------
 
@@ -232,17 +230,13 @@ CREATE TABLE `trick` (
 --
 
 INSERT INTO `trick` (`id`, `trick_name`, `description`, `slug`, `created_at`, `trick_group_id`, `user_id`, `image_filename`) VALUES
-(102, 'Phil-grab', 'Consiste à croiser ses skis et attraper son ski gauche avec sa main gauche sur la carre extérieure (ou l\'inverse,main droite...). Un Safety avec les skis croisés, en gros...\r\nIl faut d\'abord faire un saut, un simple ollie par exemple comme on peut le voir sur le tuto du ollie. Bien plier les jambes une fois en l’air pour se regrouper, et aller chercher la planche avec la main. Attention il ne faut pas que le buste se casse en deux pour aller chercher la board : ce sont bien les genoux qui remontent pour amener la board vers la main.', 'Phil-grab', '2022-07-09 11:42:11', 19, 37, '08ac95d3196f36e99630b5f81c476668.jpg'),
-(103, 'Critical', 'La main attrape le ski opposé en passant derrière le corps (elle attrape le ski devant la fixation). Souvent en repliant la jambe grabé.\r\n L\'avant de la planche est saisie, avec la main avant, du côté de la carre frontside.', 'critical', '2022-06-29 18:00:58', 19, 37, '7e01b93c4e8d464ada42f88348cba54c.jpg'),
-(105, 'Corks', 'Il s\'agit de faire une rotation normale sauf que les skis ne seront plus parallèles au sol mais perpendiculaires au sol et c\'est le rider qui lui est parallèle et fait donc la rotation, si les skis sont devant lui on appelle cela un Cork, si il a la tête devant c\'est un Bio.\r\nCork on lance vers l\'arrière et Bio vers l\'avant.\r\nA noter que si le Cork est une figure très présente, il s\'agit cependant plus d\'une \'\'nuance\'\' à la rotation qu\'une figure en elle-même. On dira Cork 360, Cork 9 etc.', 'corks', '2022-09-21 00:56:34', 20, 37, 'f9a219e31bb16c0f53edd3d795ff75fc.jpg'),
-(106, 'Backflip', 'Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière.\r\nIl est possible de faire plusieurs flips à la suite, et d\'ajouter un grab à la rotation.\r\nEn fait, le backflip est un Salto arrière (on peut le faire également en double)', 'backflip', '2022-08-23 18:59:42', 21, 37, '60c4dadeb34b578d7eb7208c916efeab.jpg'),
-(107, 'DSpin', 'Il est possible de faire plusieurs flips à la suite, et d\'ajouter un grab à la rotation.\r\nLes flips agrémentés d\'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.\r\nLe D-spin est une des plus dures à expliquer : tu fais un cork 360 et puis un back-flip... puis tu tourne dans tout les sens et tu voit ce que ça donne &#61514;.', 'dspin', '2022-06-19 00:57:12', 21, 37, 'd2ab3d4f4e581c0fb0e2cd241092ec36.jpg'),
-(108, 'Lipslide', 'Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l\'axe de la barre, soit perpendiculaire, soit plus ou moins désaxé.\r\nLe lipslide c\'est comme en skate, en snow, etc. Tu arrives genre face à un rail, tu arrives à gauche, ton Tail passe par dessus le rail pour slider alors qu\'en normal, ton Nose passe par dessus le rail ...', 'lipslide', '2022-09-02 16:35:04', 22, 37, 'da7c31d60b3f8d363ace8ec12c5b6015.jpg'),
+(105, 'Corks', 'Il s\'agit de faire une rotation normale sauf que les skis ne seront plus parallèles au sol mais perpendiculaires au sol et c\'est le rider qui lui est parallèle et fait donc la rotation, si les skis sont devant lui on appelle cela un Cork, si il a la tête devant c\'est un Bio.\r\nCork on lance vers l\'arrière et Bio vers l\'avant.\r\nA noter que si le Cork est une figure très présente, il s\'agit cependant plus d\'une \'\'nuance\'\' à la rotation qu\'une figure en elle-même. On dira Cork 360, Cork 9 etc.', 'corks', '2022-09-21 00:56:34', 20, 37, '724cc8244a23b227ea020bb1461b0998.jpg'),
+(107, 'DSpin', 'Il est possible de faire plusieurs flips à la suite, et d\'ajouter un grab à la rotation.\r\nLes flips agrémentés d\'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.\r\nLe D-spin est une des plus dures à expliquer : tu fais un cork 360 et puis un back-flip... puis tu tourne dans tout les sens et tu voit ce que ça donne &#61514;.', 'dspin', '2022-06-19 00:57:12', 21, 37, '62d5e8810f8440b8e5efc5054c2d45ba.jpg'),
+(108, 'Lipslide', 'Un slide consiste à glisser sur une barre de slide. Le slide se fait soit avec la planche dans l\'axe de la barre, soit perpendiculaire, soit plus ou moins désaxé.\r\nLe lipslide c\'est comme en skate, en snow, etc. Tu arrives genre face à un rail, tu arrives à gauche, ton Tail passe par dessus le rail pour slider alors qu\'en normal, ton Nose passe par dessus le rail ...', 'lipslide', '2022-09-02 16:35:04', 22, 37, 'b134a01a96d68e5ec9dbfc5aebed74e2.jpg'),
 (109, 'Reverse', 'Pour parler des slides (ou rails, grinds, etc?) ou des réceptions en slide on utilise l\'adjectif anglais \'\'to\'\', ainsi on peut parler de 450 to rail ce qui signifie une entrée en 450 puis posé sur le rail. On peut aussi faire l\'inverse, un rail to 630 signifiera la prise d\'un rail suivie d\'une sortie en 630 (1 tour 3/4).\r\npour les reverses, tu le fais du même côté que la rotation (cork 7 reverse safety, tu fais un cork 7 vers la droite on dit, ben t\'attrapes ton ski gauche)', 'reverse', '2022-05-02 01:07:04', 22, 37, 'f18cd823ed9d8d4a700ca89951efd0ae.jpg'),
-(110, 'Method Air', 'Le terme old school désigne un style de freestyle caractérisée par en ensemble de figure et une manière de réaliser des figures passée de mode, qui fait penser au freestyle des années 1980 - début 1990 (par opposition à new school) \r\nPlus de 30 ans après sa création, le method air s’est imposé comme l’une des figures classiques du snowboard. Un tweak simple qui s’apprend en une journée et qui demande une vie entière avant de le maîtriser…', 'method-air', '2022-05-20 23:08:19', 23, 37, '2635e16a5b8eab289fcf2293449519ed.jpg'),
-(111, 'Mute', 'Consiste à attraper le ski inverse de la main qui grabe devant la fixation, généralement on croise les skis en faisant ce grab (par exemple ta main droite attrape ton ski gauche devant la fixation sur la carre extérieure).\r\nC\'est la saisie de la carre frontside de la planche entre les deux pieds avec la main avant.', 'mute', '2022-09-15 15:26:43', 19, 38, 'beda969f8ff8f58afc7711ce64b173eb.jpg'),
-(112, 'underflip', 'Les flips agrémentés d\'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.\r\nL\'underflip est un mélange de Lincoln et de front. Tu fais un front de côté pour te retrouver en switch ...', 'underflip', '2022-08-29 18:47:09', 21, 38, 'e77c68147546d64687a491848c108609.jpg'),
-(113, 'Unatural', 'Il s\'agit d\'une rotation effectuée dans son sens inverse de rotation (généralement on tourne mieux d\'un coté que de l\'autre et donc faire le côté où l\'on est moins fort c\'est Unatural ...\r\nOn parle également d\'Unaturals rails quand on prend un rail du côté où on le sent le moins.', 'unatural', '2022-08-16 17:29:01', 22, 33, '893a199a1bdf7ead0118633dcc074aff.jpg'),
+(111, 'Mute', 'Consiste à attraper le ski inverse de la main qui grabe devant la fixation, généralement on croise les skis en faisant ce grab (par exemple ta main droite attrape ton ski gauche devant la fixation sur la carre extérieure).\r\nC\'est la saisie de la carre frontside de la planche entre les deux pieds avec la main avant.', 'mute', '2022-09-15 15:26:43', 19, 38, '6b8993efb51f3febc804fba792563f27.jpg'),
+(112, 'underflip', 'Les flips agrémentés d\'une vrille existent aussi (Mac Twist, Hakon Flip...), mais de manière beaucoup plus rare, et se confondent souvent avec certaines rotations horizontales désaxées.\r\nL\'underflip est un mélange de Lincoln et de front. Tu fais un front de côté pour te retrouver en switch ...', 'underflip', '2022-08-29 18:47:09', 21, 38, 'e040cf49e9bcc91ddde459d211708257.jpg'),
+(113, 'Unatural', 'Il s\'agit d\'une rotation effectuée dans son sens inverse de rotation (généralement on tourne mieux d\'un coté que de l\'autre et donc faire le côté où l\'on est moins fort c\'est Unatural ...\r\nOn parle également d\'Unaturals rails quand on prend un rail du côté où on le sent le moins.', 'unatural', '2022-08-16 17:29:01', 22, 33, '8ff90329b4ade1a732cb71897d8d3d38.jpg'),
 (114, 'Frontflip', 'Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière.\r\nIl est possible de faire plusieurs flips à la suite, et d\'ajouter un grab à la rotation.\r\nLe Frontflip est donc un Salto avant (aussi en double).', 'frontflip', '2022-09-27 15:04:32', 21, 33, 'f3d849879ff23ac0149f49f2d9daa6c2.jpg'),
 (115, 'Nospin', 'La rotation s\'effectue sur soi même (logique), il en existe une infinité, exprimé en degré, mais aussi des variantes dans l\'axe de la rotation. Pas très facile a exécuter.\r\nLe no spin consiste à faire un Fakie to Fakie c\'est à dire qu\'on part en arrière et on fait un saut droit pour retomber en arrière->switch to switch (le maître dans la matière est Pep Fujas).', 'nospin', '2022-10-16 03:54:03', 20, 36, '76269cfafb49abdf9f48da2d94fbf4d5.jpg'),
 (116, 'Japan Air', 'Le terme old school désigne un style de freestyle caractérisée par en ensemble de figure et une manière de réaliser des figures passée de mode, qui fait penser au freestyle des années 1980 - début 1990 (par opposition à new school) :\r\nfigures désuètes : Japan air, rocket air, ...', 'japan-air', '2022-05-08 23:22:36', 23, 36, 'e3a8c44df232cb9bb1effad5999e8b21.jpg'),
@@ -251,7 +245,8 @@ INSERT INTO `trick` (`id`, `trick_name`, `description`, `slug`, `created_at`, `t
 (119, 'Lincoln', 'Rotation la tête en bas, en fait imagine que tu prends le saut mais quand tu sautes tu penches la tête vers la droite (ou la gauche) et la tête passe ensuite dessous toi les skis dessous, comme si on était posé sur le kick et qu\'on voyait ta tête décrire un mouvement circulaire dans l\'espace, enfin voilà.', 'lincoln', '2022-10-12 20:16:16', 21, 30, 'a5f3a6998479bb3d95139c3f79c599e7.jpg'),
 (120, 'Flatspin', 'Le Flatspin consiste à faire une rotation en ayant le corps et la planche parallèles au sol, on lance un back-flip horizontalement (en gros).\r\nCa se fait beaucoup en 540, c\'est dans le mouvement ?', 'flatspin', '2022-08-16 15:12:48', 20, 30, 'fb1bfaa259cb6e37b15711acadff22da.jpg'),
 (123, 'Tailgrab', 'Le Tail-Grab consiste à attraper le ski derrière la fixation généralement en croisant les skis, avec la main qui est du côté du ski grabé. Un des grabs les plus courants également dont le maitre n\'est autre que Candide Thovex\r\nLe true Tail-grab :\r\nVariante du Tail-Grab où tu attrapes à la spatule arrière (plus dur).', 'tailgrab', '2022-10-31 23:02:47', 19, 30, '89f87fd3022fdf045fac3f75a62c913e.jpg'),
-(124, 'LuiKang', 'Les Grabs sont ce qui agrémente le tricot, c\'est une des différences entre le oldschool et le ski newschool, le grab consiste à attraper son ski avec sa main, il existe différente façon soit différente manière de les définir.\r\nLe Lui Kang est une variante du Safety, même chose sauf qu\'en même temps que le grab tu tends l\'autre jambe.', 'luikang', '2022-10-31 23:08:59', 19, 34, '7c2ba9f2e2d93e3ac179751d44ecfc92.jpg');
+(124, 'LuiKang', 'Les Grabs sont ce qui agrémente le tricot, c\'est une des différences entre le oldschool et le ski newschool, le grab consiste à attraper son ski avec sa main, il existe différente façon soit différente manière de les définir.\r\nLe Lui Kang est une variante du Safety, même chose sauf qu\'en même temps que le grab tu tends l\'autre jambe.', 'luikang', '2022-10-31 23:08:59', 19, 34, '7c2ba9f2e2d93e3ac179751d44ecfc92.jpg'),
+(139, 'Le trick du siecle', 'Nous sommes encore en plein chantier de creation', 'le-trick-du-siecle', '2023-04-15 16:00:34', 21, 37, '8109a0f8008e9b6fad9124758cb6e9c6.jpg');
 
 -- --------------------------------------------------------
 
@@ -322,7 +317,7 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `is_verified`, `first_na
 
 CREATE TABLE `video` (
   `id` int(11) NOT NULL,
-  `trick_id` int(11) NOT NULL,
+  `trick_id` int(11) DEFAULT NULL,
   `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -331,10 +326,26 @@ CREATE TABLE `video` (
 --
 
 INSERT INTO `video` (`id`, `trick_id`, `url`) VALUES
-(2, 107, 'https://www.youtube.com/embed/OMxJRz06Ujc'),
-(3, 103, 'https://www.youtube.com/embed/e1wuU7j5zpg'),
-(6, 115, 'https://www.youtube.com/embed/jH76540wSqU'),
-(7, 115, 'https://www.youtube.com/embed/crDzumi91XQ');
+(10, 105, 'https://www.youtube.com/embed/SFYYzy0UF-8'),
+(11, 107, 'https://www.youtube.com/embed/L4bIunv8fHM'),
+(12, 108, 'https://www.youtube.com/embed/SlhGVnFPTDE'),
+(13, 109, 'https://www.youtube.com/embed/hUQ3eKS13co'),
+(14, 111, 'https://www.youtube.com/embed/7KUpodSrZqI'),
+(15, 112, 'https://www.youtube.com/embed/nCFkNIaL7yM'),
+(16, 113, 'https://www.youtube.com/embed/dSZ7_TXcEdM'),
+(17, 114, 'https://www.youtube.com/embed/crDzvmi91XQ'),
+(18, 115, 'https://www.youtube.com/embed/d4FzQe6gBp4'),
+(22, 117, 'https://www.youtube.com/embed/5t-87AZARn8'),
+(23, 118, 'https://www.youtube.com/embed/d4FzQe6gBp4'),
+(24, 119, 'https://www.youtube.com/embed/y4CQHBwtlCU'),
+(29, 124, 'https://www.youtube.com/embed/mBB7CznvSPQ'),
+(30, 116, 'https://www.youtube.com/embed/oI-umOzNBME'),
+(31, 120, 'https://www.youtube.com/embed/Iofrv4rxJcY'),
+(32, 123, 'https://www.youtube.com/embed/HJiAYHGQApU'),
+(38, 124, 'https://www.youtube.com/embed/2iYibvfBiXE'),
+(51, 139, 'https://www.youtube.com/embed/PxhfDec8Ays'),
+(52, 139, 'https://www.youtube.com/embed/uPHnvbgERTs'),
+(63, NULL, 'https://www.youtube.com/embed/CecSg3ac9qE');
 
 --
 -- Index pour les tables déchargées
@@ -413,13 +424,13 @@ ALTER TABLE `video`
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=636;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=637;
 
 --
 -- AUTO_INCREMENT pour la table `messenger_messages`
@@ -437,7 +448,7 @@ ALTER TABLE `reset_password_request`
 -- AUTO_INCREMENT pour la table `trick`
 --
 ALTER TABLE `trick`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT pour la table `trick_group`
@@ -455,7 +466,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `video`
 --
 ALTER TABLE `video`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- Contraintes pour les tables déchargées
@@ -491,7 +502,7 @@ ALTER TABLE `trick`
 -- Contraintes pour la table `video`
 --
 ALTER TABLE `video`
-  ADD CONSTRAINT `FK_7CC7DA2CB281BE2E` FOREIGN KEY (`trick_id`) REFERENCES `trick` (`id`);
+  ADD CONSTRAINT `FK_7CC7DA2CB281BE2E` FOREIGN KEY (`trick_id`) REFERENCES `trick` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

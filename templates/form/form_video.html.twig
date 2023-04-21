@@ -1,11 +1,27 @@
-<div>    
-    {# {{ form_row(form.video) }} #}
-    <iframe width="100" height="100" src="{{ video.url }}" 
+{# <div>     #}
+    {# {{ form_row(trick.video) }} #}
+
+    {# <iframe width="100" height="100" src="{{ video.url }}" 
                         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
                         encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <a href="{{ path('remove_trick_video', {id: video.id}) }}">Supprimer</a>
 
+</div> #}
+
+<div class="del">    
+    {{ form_row(form.url) }}
+
+        {# <div style="display:flex; justify-content: space-around;" >
+
+            <iframe width="100" height="100" src="{{ trick.videos.url }}" 
+                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+                                encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <a href="{{ path('remove_trick_video', {id: video.id}) }}">Supprimer</a>
+            
+        </div> #}
+    <button type="button" class="btn btn-outline-primary btn-sm btn-remove">Supprimer</button>    
 </div>
+
 {# <div class="col-4">
     {{ form_row(form.url) }}
     <div class="form-group">

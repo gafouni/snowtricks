@@ -15,8 +15,10 @@
 
                 <h1 class="h3 mb-3 font-weight-bold">Modifiez votre figure</h1><br><br>
                 
-                {# {{ include('trick/trick_form.html.twig', {'button_label': 'Update'}) }} #}
-                {{ include('trick/edit_form.html.twig', {'button_label': 'Modifier'}) }}
+                {{ include('trick/edit_form.html.twig') }}
+                {# <a href="{{ path('remove_trick_video', {id: video.id}) }}">Supprimer</a>  #}
+
+                {# {{ include('trick/edit_form.html.twig', {'button_label': 'Modifier'}) }} #}
 
             
 
