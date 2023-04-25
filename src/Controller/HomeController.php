@@ -12,7 +12,7 @@ class HomeController extends AbstractController
 {
     
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      */
     public function index(Request $request, TrickRepository $trickRepository): Response
     {
@@ -22,7 +22,6 @@ class HomeController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'tricks' =>$trickRepository->findByLimit($full, $page),
-            //['createdAt' => 'desc'],
             'full'=>$full
                    
         ]);

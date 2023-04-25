@@ -116,10 +116,11 @@ class TrickController extends AbstractController
 
             $trickRepository->add($trick, true);
 
+            $flashMessage = $this->addFlash('success', 'Votre figure a ete creee avec succes !');
+
+
             return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
         }
-
-        $flashMessage = $this->addFlash('success', 'Votre figure a ete creee avec succes !');
 
         return $this->renderForm('trick/new.html.twig', [
             'trick' => $trick,
@@ -163,10 +164,12 @@ class TrickController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
             
+            $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
+
             return $this->redirectToRoute('trick', ['slug'=> $trick->getSlug()], Response::HTTP_SEE_OTHER);
+        
         }    
 
-        $flashMessage = $this->addFlash('success', 'Votre modification a ete enregistree !');
 
         return $this->renderForm('trick/edit.html.twig', [
             'trick' => $trick,

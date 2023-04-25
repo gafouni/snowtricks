@@ -50,6 +50,8 @@ class ResetPasswordController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->processSendingPasswordResetEmail(
                 $form->get('email')->getData(),
+                //$form->get('firstName')->getData(),
+                //$form->get('lastName')->getData(),
                 $mailer,
                 $translator
             );
@@ -77,7 +79,7 @@ class ResetPasswordController extends AbstractController
             'resetToken' => $resetToken,
         ]);
     }
-
+ 
     /**
      * Validates and process the reset URL that the user clicked in their email.
      *
@@ -131,7 +133,7 @@ class ResetPasswordController extends AbstractController
             // The session is cleaned up after the password has been changed.
             $this->cleanSessionAfterReset();
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('reset_password/reset.html.twig', [

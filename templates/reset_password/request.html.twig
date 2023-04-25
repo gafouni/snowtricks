@@ -15,6 +15,7 @@
                 <h3 style="margin:2rem;">Reinitialisez votre mot de passe</h3>
 
                 {{ form_start(requestForm) }}
+                    {# {{ form_errors(form) }} #}
                     {{ form_row(requestForm.email) }}
                     <div>
                         <small>

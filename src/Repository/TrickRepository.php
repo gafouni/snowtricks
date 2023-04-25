@@ -42,7 +42,7 @@ class TrickRepository extends ServiceEntityRepository
      /**
      * @return Trick[] Returns an array of Trick objects
      */
-    public function findByLimit(bool $full = false, int $page, int $limit = 12){
+    public function findByLimit(bool $full = false, int $page, int $limit = 8){
 
         if($full > 0){
             return $this->createQueryBuilder('t')
@@ -54,7 +54,7 @@ class TrickRepository extends ServiceEntityRepository
             return $this->createQueryBuilder('t')
                     ->setFirstResult(($page - 1) * $limit)
                     ->orderBy('t.id', 'DESC')
-                    ->setMaxResults(12)
+                    ->setMaxResults(8)
                     ->getQuery()
                     ->getResult();
         }

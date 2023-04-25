@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
@@ -19,6 +21,8 @@ class Message
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message = "Ce champs ne peut pas etre vide")
+     * 
      */
     private $content;
 
