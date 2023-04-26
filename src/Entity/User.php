@@ -27,19 +27,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180)
-     * @Assert\NotBlank(message = "Ce champs ne peut pas etre vide")
+     * @Assert\NotBlank(message = "Ce champ ne peut pas etre vide")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=180)
-     * @Assert\NotBlank(message = "Ce champs ne peut pas etre vide")
+     * @Assert\NotBlank(message = "Ce champ ne peut pas etre vide")
      */
     private $lastName;
 
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message = "Ce champ ne peut pas etre vide")
+     * @Assert\Length(min=6, minMessage = "Le mot de passe doit avoir au moins 6 caracteres")
      * @Assert\Email(message = "Veuillez renseigner un email valide")
      */
     private $email;

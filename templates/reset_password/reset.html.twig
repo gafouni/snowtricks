@@ -11,8 +11,8 @@
 
                 <h1>Entrez votre nouveau mot de passe</h1>
 
-                {{ form_start(resetForm) }}
-                    {# {{ form_errors(form) }} #}
+                {{ form_start(resetForm, {'attr': {'novalidate': 'novalidate'}}) }}
+                
                     {{ form_row(resetForm.plainPassword) }}
                     <button class="btn btn-primary">Changer mon mot de passe</button>
                 {{ form_end(resetForm) }}

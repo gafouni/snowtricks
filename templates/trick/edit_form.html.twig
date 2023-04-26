@@ -1,5 +1,5 @@
 
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {# {{ form_widget(form._token) }} #}
     {{ form_row(form.trickName, {'label': 'Nom', 'attr': {'placeholder': 'Nom de la figure...'}}) }}
     {{ form_row(form.description, {'label': 'Description', 'attr': {'placeholder': 'Description de la figure...'}}) }}

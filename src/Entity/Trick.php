@@ -31,15 +31,15 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message = "Ce champs ne peut pas etre vide")
+     * @Assert\NotBlank(message = "Ce champ ne peut pas etre vide")
      * 
      */
     private $trickName;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message = "Ce champs ne peut pas etre vide")
-     * @Assert\Length(min=10)
+     * @Assert\NotBlank(message = "Ce champ ne peut pas etre vide")
+     * @Assert\Length(min=10, minMessage="Ce champ doit avoir au moins 20 caracteres")
      */
     private $description;
 

@@ -1,9 +1,6 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_row(form.content, { 'attr': {'placeholder': 'Entrez votre commentaire...'}}) }}
-    {# {{ form_row(form.description, {'label': 'Description', 'attr': {'placeholder': 'Description de la figure...'}}) }}
-    {{ form_row(form.imgFile, {'label': 'Image', 'attr': {'placeholder': 'Url de l\'image...'}}) }}
-    {{ form_row(form.videoFile, {'label': 'Video', 'attr': {'placeholder': 'Url de la video...'}}) }}
-    {{ form_row(form.trickGroup, {'label': 'Categorie', 'attr': {'placeholder': 'Categorie...'}}) }} #}
+
     
     {# {{ form_widget(form) }} #}
     <button class="btn btn-lg btn-secondary" style="margin:2rem;">{{ button_label|default('Ajouter') }}</button>

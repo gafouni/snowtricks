@@ -23,6 +23,14 @@ class TrickType extends AbstractType
                 'multiple'=> true,
                 'mapped'=> false,
                 'required'=> false,
+                'constraints'=> [
+                    'mimeTypes' => [
+                        'image/gif',
+                        'image/jpeg',
+                        'image/jpg',
+                    ],
+                    'mimeTypesMessage' => 'Veuillez selectionner un format d\'image valide'
+                ]
             ])
             ->add('videos', CollectionType::class, [
                 'entry_type'=>VideoType::class,
