@@ -55,7 +55,7 @@ class TrickController extends AbstractController
 
         //Liste des messages laisses sur une figure
         $messages = $messageRepository->findPaginatedMessages($trick, 
-            $page, 3
+            $page, 10
         );
         
 

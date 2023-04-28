@@ -42,7 +42,7 @@ class MessageRepository extends ServiceEntityRepository
     }  
 
 
-    public function findPaginatedMessages(Trick $trick, int $page = 1, int $limit = 3): array
+    public function findPaginatedMessages(Trick $trick, int $page = 1, int $limit = 10): array
     {
         $result = [];
         
@@ -50,7 +50,7 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.trick = :trick')
             ->setParameter('trick', $trick)
            ->orderBy('m.id', 'DESC')
-           ->setMaxResults(3)
+           ->setMaxResults(10)
            ->setFirstResult(($page - 1) * $limit);
 
         $paginator = new Paginator($query);
