@@ -16,7 +16,12 @@
 
                 {{ form_start(requestForm, {'attr': {'novalidate': 'novalidate'}}) }}
                 
+                    {# {{ form_row(requestForm.email) }} #}
+                    {{ form_row(requestForm.firstName,  {'label': 'Prenom'}) }}
+                    {{ form_row(requestForm.lastName,  {'label': 'Nom'}) }}
                     {{ form_row(requestForm.email) }}
+
+
                     <div>
                         <small>
                             Entrez votre adresse email et nous vous enverrons un 
